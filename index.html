@@ -5,305 +5,355 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>RAMPAGE</title>
+    <title>RAMPAGE — Digital Project</title>
+    <meta name="description" content="RAMPAGE — современный digital project.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <div class="cursor-glow"></div>
+<div class="noise"></div>
 
-    <header class="header">
-        <nav class="navbar">
+<header class="header" id="header">
+    <div class="container nav">
 
-            <a href="#" class="logo">
-                RAMP<span>AGE</span>
-            </a>
+        <a href="#" class="logo">
+            <span>R</span>AMPAGE
+        </a>
 
-            <div class="nav-links">
-                <a href="#about">О проекте</a>
-                <a href="#features">Возможности</a>
-                <a href="#team">Команда</a>
-            </div>
-
-            <a
-                href="https://github.com/imfrqte/Rampage"
-                target="_blank"
-                class="github-btn"
-            >
-                GitHub ↗
-            </a>
-
-            <button class="menu-btn" id="menuBtn">
-                ☰
-            </button>
-
+        <nav class="nav-links" id="navLinks">
+            <a href="#about">О проекте</a>
+            <a href="#features">Возможности</a>
+            <a href="#team">Команда</a>
+            <a href="#contact">Контакты</a>
         </nav>
-    </header>
+
+        <a href="https://github.com/imfrqte/Rampage"
+           target="_blank"
+           class="nav-button">
+            GitHub ↗
+        </a>
+
+        <button class="menu-button" id="menuButton">
+            <span></span>
+            <span></span>
+        </button>
+
+    </div>
+</header>
 
 
-    <main>
+<main>
 
-        <!-- HERO -->
+    <!-- HERO -->
 
-        <section class="hero">
+    <section class="hero">
 
-            <div class="hero-content">
+        <div class="hero-grid"></div>
+        <div class="hero-glow"></div>
 
-                <div class="status">
-                    <span></span>
-                    PROJECT IN DEVELOPMENT
-                </div>
+        <div class="container hero-content">
 
-                <h1>
-                    RAMPAGE
-                </h1>
-
-                <p>
-                    Мы создаём цифровые продукты,
-                    объединяя технологии, дизайн
-                    и сильные идеи.
-                </p>
-
-                <div class="hero-buttons">
-
-                    <a href="#about" class="btn primary">
-                        Исследовать
-                    </a>
-
-                    <a
-                        href="https://github.com/imfrqte/Rampage"
-                        target="_blank"
-                        class="btn secondary"
-                    >
-                        GitHub
-                    </a>
-
-                </div>
-
+            <div class="hero-badge">
+                <span class="pulse"></span>
+                PROJECT IN DEVELOPMENT
             </div>
 
-            <div class="scroll">
-                SCROLL DOWN
-                <span>↓</span>
-            </div>
+            <h1>
+                BUILD.
+                <br>
+                <span>CREATE.</span>
+                <br>
+                RAMPAGE.
+            </h1>
 
-        </section>
+            <p class="hero-description">
+                Мы создаём цифровой проект, объединяющий
+                технологии, дизайн и идеи в одном пространстве.
+            </p>
 
+            <div class="hero-actions">
 
-        <!-- ABOUT -->
+                <a href="#about" class="button button-primary">
+                    Узнать больше
+                    <span>↓</span>
+                </a>
 
-        <section class="section" id="about">
-
-            <div class="section-label">
-                01 / ABOUT
-            </div>
-
-            <div class="section-heading">
-                <h2>
-                    Создаём<br>
-                    <span>нечто большее.</span>
-                </h2>
-
-                <p>
-                    Rampage — проект, который развивается
-                    вместе с нашей командой. Здесь идеи
-                    превращаются в реальные решения.
-                </p>
-            </div>
-
-            <div class="stats">
-
-                <div class="stat reveal">
-                    <strong data-count="3">0</strong>
-                    <span>Участника</span>
-                </div>
-
-                <div class="stat reveal">
-                    <strong data-count="100">0</strong>
-                    <span>% энергии</span>
-                </div>
-
-                <div class="stat reveal">
-                    <strong>∞</strong>
-                    <span>Возможностей</span>
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- FEATURES -->
-
-        <section class="section" id="features">
-
-            <div class="section-label">
-                02 / FEATURES
-            </div>
-
-            <div class="section-heading">
-
-                <h2>
-                    Что мы<br>
-                    <span>создаём.</span>
-                </h2>
-
-            </div>
-
-            <div class="features">
-
-                <article class="feature reveal">
-
-                    <div class="feature-number">
-                        01
-                    </div>
-
-                    <div class="feature-icon">
-                        ⚡
-                    </div>
-
-                    <h3>
-                        Быстро
-                    </h3>
-
-                    <p>
-                        Разрабатываем решения без
-                        лишней сложности и бюрократии.
-                    </p>
-
-                </article>
-
-
-                <article class="feature reveal">
-
-                    <div class="feature-number">
-                        02
-                    </div>
-
-                    <div class="feature-icon">
-                        ◇
-                    </div>
-
-                    <h3>
-                        Красиво
-                    </h3>
-
-                    <p>
-                        Продумываем визуальную часть,
-                        интерфейс и пользовательский опыт.
-                    </p>
-
-                </article>
-
-
-                <article class="feature reveal">
-
-                    <div class="feature-number">
-                        03
-                    </div>
-
-                    <div class="feature-icon">
-                        ⌁
-                    </div>
-
-                    <h3>
-                        Масштабируемо
-                    </h3>
-
-                    <p>
-                        Архитектура позволяет развивать
-                        проект и добавлять новые функции.
-                    </p>
-
-                </article>
-
-            </div>
-
-        </section>
-
-
-        <!-- TEAM -->
-
-        <section class="section team" id="team">
-
-            <div class="section-label">
-                03 / TEAM
-            </div>
-
-            <div class="team-box reveal">
-
-                <div>
-
-                    <span class="small">
-                        THREE MINDS
-                    </span>
-
-                    <h2>
-                        Один проект.
-                    </h2>
-
-                    <p>
-                        Три человека, одна цель —
-                        создать что-то действительно интересное.
-                    </p>
-
-                </div>
-
-                <div class="team-number">
-                    03
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- CTA -->
-
-        <section class="cta">
-
-            <div class="cta-content reveal">
-
-                <span>
-                    READY?
-                </span>
-
-                <h2>
-                    LET'S<br>
-                    RAMPAGE.
-                </h2>
-
-                <a
-                    href="https://github.com/imfrqte/Rampage"
-                    target="_blank"
-                    class="btn primary"
-                >
-                    Открыть GitHub ↗
+                <a href="https://github.com/imfrqte/Rampage"
+                   target="_blank"
+                   class="button button-secondary">
+                    GitHub ↗
                 </a>
 
             </div>
 
-        </section>
-
-    </main>
-
-
-    <footer>
-
-        <div>
-            © 2026 RAMPAGE
         </div>
 
-        <div>
-            BUILT WITH CODE
+        <div class="hero-scroll">
+            <span>SCROLL TO EXPLORE</span>
+            <div class="scroll-line"></div>
         </div>
 
-    </footer>
+    </section>
 
 
-    <script src="script.js"></script>
+    <!-- ABOUT -->
+
+    <section class="section about" id="about">
+
+        <div class="container">
+
+            <div class="section-heading reveal">
+                <span class="section-number">01</span>
+
+                <div>
+                    <p class="eyebrow">ABOUT PROJECT</p>
+                    <h2>Больше чем<br><span>просто идея.</span></h2>
+                </div>
+            </div>
+
+            <div class="about-grid">
+
+                <div class="about-text reveal">
+                    <p class="large-text">
+                        RAMPAGE — это проект, созданный для тех,
+                        кто хочет превращать идеи в работающие
+                        цифровые продукты.
+                    </p>
+
+                    <p>
+                        Мы экспериментируем с современными технологиями,
+                        интерфейсами и новыми подходами к созданию
+                        цифровых решений.
+                    </p>
+
+                    <a href="#features" class="text-link">
+                        Исследовать проект →
+                    </a>
+                </div>
+
+                <div class="stats reveal">
+
+                    <div class="stat">
+                        <strong data-count="3">0</strong>
+                        <span>Участника</span>
+                    </div>
+
+                    <div class="stat">
+                        <strong data-count="100">0</strong>
+                        <span>Идей впереди</span>
+                    </div>
+
+                    <div class="stat">
+                        <strong>∞</strong>
+                        <span>Возможностей</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FEATURES -->
+
+    <section class="section features" id="features">
+
+        <div class="container">
+
+            <div class="section-heading reveal">
+                <span class="section-number">02</span>
+
+                <div>
+                    <p class="eyebrow">FEATURES</p>
+                    <h2>Создаём<br><span>будущее.</span></h2>
+                </div>
+            </div>
+
+            <div class="feature-grid">
+
+                <article class="feature-card reveal">
+                    <div class="card-top">
+                        <span>01</span>
+                        <span class="card-icon">↗</span>
+                    </div>
+
+                    <div>
+                        <h3>Modern Tech</h3>
+                        <p>
+                            Используем современные инструменты
+                            и технологии для создания продукта.
+                        </p>
+                    </div>
+
+                    <div class="card-line"></div>
+                </article>
+
+
+                <article class="feature-card feature-active reveal">
+                    <div class="card-top">
+                        <span>02</span>
+                        <span class="card-icon">✦</span>
+                    </div>
+
+                    <div>
+                        <h3>Creative Design</h3>
+                        <p>
+                            Минималистичный интерфейс,
+                            продуманный до мельчайших деталей.
+                        </p>
+                    </div>
+
+                    <div class="card-line"></div>
+                </article>
+
+
+                <article class="feature-card reveal">
+                    <div class="card-top">
+                        <span>03</span>
+                        <span class="card-icon">◉</span>
+                    </div>
+
+                    <div>
+                        <h3>Real Impact</h3>
+                        <p>
+                            Не просто концепция — создаём
+                            решения, которые можно использовать.
+                        </p>
+                    </div>
+
+                    <div class="card-line"></div>
+                </article>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- TEAM -->
+
+    <section class="section team" id="team">
+
+        <div class="container">
+
+            <div class="section-heading reveal">
+                <span class="section-number">03</span>
+
+                <div>
+                    <p class="eyebrow">THE TEAM</p>
+                    <h2>Люди за<br><span>RAMPAGE.</span></h2>
+                </div>
+            </div>
+
+            <div class="team-grid">
+
+                <div class="team-card reveal">
+                    <div class="avatar">01</div>
+
+                    <div class="team-info">
+                        <span>DEVELOPER</span>
+                        <h3>Frontend</h3>
+                    </div>
+
+                    <span class="team-arrow">↗</span>
+                </div>
+
+
+                <div class="team-card reveal">
+                    <div class="avatar">02</div>
+
+                    <div class="team-info">
+                        <span>DEVELOPER</span>
+                        <h3>Backend</h3>
+                    </div>
+
+                    <span class="team-arrow">↗</span>
+                </div>
+
+
+                <div class="team-card reveal">
+                    <div class="avatar">03</div>
+
+                    <div class="team-info">
+                        <span>DESIGN</span>
+                        <h3>Creative</h3>
+                    </div>
+
+                    <span class="team-arrow">↗</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- CTA -->
+
+    <section class="cta" id="contact">
+
+        <div class="cta-grid"></div>
+
+        <div class="container cta-content reveal">
+
+            <p class="eyebrow">READY?</p>
+
+            <h2>
+                LET'S BUILD
+                <span>SOMETHING.</span>
+            </h2>
+
+            <p>
+                Следи за развитием проекта на GitHub.
+            </p>
+
+            <a href="https://github.com/imfrqte/Rampage"
+               target="_blank"
+               class="button button-light">
+                Открыть GitHub ↗
+            </a>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer>
+
+    <div class="container footer-content">
+
+        <div class="footer-logo">
+            RAMPAGE<span>.</span>
+        </div>
+
+        <p>© 2026 RAMPAGE. All rights reserved.</p>
+
+        <a href="https://github.com/imfrqte/Rampage"
+           target="_blank">
+            GitHub ↗
+        </a>
+
+    </div>
+
+</footer>
+
+
+<div class="cursor-glow" id="cursorGlow"></div>
+
+<script src="script.js"></script>
 
 </body>
 </html>
