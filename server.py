@@ -30,7 +30,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 ROOT = Path(__file__).resolve().parent
 STATIC_FILES = frozenset({
     "index.html", "Firebird.html", "styles.css", "ux.css", "community.css",
-    "bento.css", "catalog.js", "matcher.js", "app.js", "ux.js",
+    "bento.css", "theme.css", "theme.js", "catalog.js", "matcher.js", "app.js", "ux.js",
     "community-data.js", "community.js", "bento.js", "accounts.css", "accounts.js",
 })
 SCHEMA = """
@@ -789,3 +789,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

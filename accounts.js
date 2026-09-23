@@ -82,7 +82,7 @@
     if (!config?.available || !config.captchaRequired) return;
     try {
       await loadCaptcha(); if(version!==renderVersion || !dialog.open || !$('account-captcha'))return;
-      captchaWidget=window.turnstile.render('#account-captcha',{sitekey:config.captchaSiteKey,action,theme:'light',size:'flexible',
+      captchaWidget=window.turnstile.render('#account-captcha',{sitekey:config.captchaSiteKey,action,theme:document.documentElement.dataset.theme || 'light',size:'flexible',
         callback:token=>{captchaToken=token;},'expired-callback':()=>{captchaToken='';},
         'error-callback':()=>{captchaToken='';message('Проверка на бота не завершена. Попробуйте открыть форму заново.');}});
     } catch(error) { if(version===renderVersion)message(error.message); }
@@ -225,3 +225,4 @@
   }
   void initialize();
 })();
+
