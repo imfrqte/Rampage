@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Подбор до трёх event-подрядчиков по городу, дате, формату и бюджету. Демонстрационный прототип.">
+  <title>Firebird — подбор подрядчиков</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23f26135'/%3E%3Cpath d='M10 24V8h14v4H14v3h8v4h-8v5z' fill='white'/%3E%3C/svg%3E">
+  <style>
+:root{color-scheme:light;--ink:#182533;--muted:#5c6978;--line:#dce2e8;--paper:#f3f5f7;--orange:#c9411d;--accent:#f26135;--green:#246344;font-family:Inter,"Segoe UI",Arial,sans-serif;font-size:16px}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink)}button,input,select{font:inherit}button,summary,select{cursor:pointer}button{transition:background .15s,transform .15s}button:active{transform:translateY(1px)}button:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid #246ab7;outline-offset:4px}input:focus,select:focus{outline:2px solid #246ab7;outline-offset:1px}a{color:inherit}.topbar{min-height:88px;padding:20px 5%;display:flex;align-items:center;justify-content:space-between;background:white;border-bottom:1px solid var(--line);gap:24px}.brand{display:flex;align-items:center;text-decoration:none;font-size:28px;font-weight:800;letter-spacing:-1px;gap:10px}.brandmark{display:grid;place-items:center;background:var(--accent);color:white;width:36px;height:38px;border-radius:9px;font-size:26px}.brand-caption{font-size:14px;letter-spacing:0;font-weight:400;margin-left:20px;padding-left:24px;border-left:1px solid var(--line);color:var(--muted)}.demo-badge{font-size:14px;border:1px solid var(--line);border-radius:24px;padding:9px 14px;white-space:nowrap;color:var(--muted)}main{max-width:1400px;margin:auto;padding:0 5%}.intro{display:flex;align-items:center;justify-content:space-between;padding:42px 0 34px;gap:32px}.eyebrow{font-size:12px;font-weight:750;letter-spacing:1.5px;margin:0 0 12px;color:var(--muted)}h1{font-size:clamp(30px,3.3vw,46px);line-height:1.12;letter-spacing:-1.5px;margin:0 0 16px;font-weight:750}h1 span{color:var(--orange)}.intro-copy{font-size:16px;line-height:1.6;color:var(--muted);margin:0}.intro-note{display:flex;align-items:center;gap:22px;padding-right:20px}.note-number{font-size:88px;line-height:1;font-weight:300;letter-spacing:-7px;color:#bdc6d0}.intro-note p{font-size:14px;color:var(--muted);line-height:1.6}.workspace{display:grid;grid-template-columns:310px minmax(0,1fr);gap:34px;align-items:start}.brief-panel{background:white;border:1px solid var(--line);border-radius:16px;padding:24px}.panel-heading{display:flex;align-items:center;gap:12px;margin-bottom:24px}.step{font-size:12px;color:var(--orange);background:#fff1e9;padding:7px;border-radius:6px;font-weight:750}h2{font-size:21px;margin:0;letter-spacing:-.4px}.brief-panel h2{font-size:19px}label{display:block;font-size:14px;font-weight:650;margin:19px 0 8px}select,input{width:100%;min-height:46px;border:1px solid #cbd3dd;border-radius:8px;background:#fff;color:var(--ink);padding:10px 12px}select{padding-right:24px}small{font-size:12px;color:var(--muted);display:block;line-height:1.5;margin-top:7px}.money-input{position:relative}.money-input input{padding-right:42px;font-weight:600}.money-input span{position:absolute;right:14px;top:13px;color:var(--muted)}.budget-presets{display:flex;gap:7px;margin-top:10px}.budget-presets button{flex:1;background:#f3f5f7;border:1px solid transparent;border-radius:6px;font-size:12px;padding:8px 4px;color:#465465}.budget-presets button:hover{background:#e6ebf0}.budget-presets button[aria-pressed=true]{border-color:#bc411f;color:var(--orange);background:#fff3ed}.primary-button{display:flex;align-items:center;justify-content:space-between;width:100%;background:var(--orange);color:white;border:0;border-radius:8px;padding:15px 14px;font-size:14px;font-weight:650;margin-top:24px}.primary-button:hover{background:#a83214}.primary-button span{font-size:20px}.brief-footnote{display:flex;gap:10px;border-top:1px solid var(--line);margin-top:24px;padding-top:18px;color:var(--muted)}.brief-footnote p{font-size:12px;line-height:1.6;margin:0}.brief-footnote>span{font-size:22px}.form-error,.change-hint{font-size:14px;line-height:1.5;color:#a12e14}.results-heading{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:5px 0 0}.results-heading .eyebrow{margin-bottom:8px}.count-badge{border-radius:20px;background:#e5ebf1;padding:7px 12px;font-size:12px;white-space:nowrap;font-weight:650}.query-summary{font-size:14px;color:var(--muted);margin:13px 0 20px;line-height:1.6}.contractor{background:#fff;border:1px solid var(--line);border-radius:12px;margin-bottom:14px;padding:22px;position:relative;overflow:hidden}.contractor.best{border-color:#df9279}.best-label{background:#fff0e9;color:#a53918;display:inline-block;font-size:12px;font-weight:650;padding:6px 10px;border-radius:5px;margin-bottom:16px}.card-top{display:flex;gap:14px;align-items:center}.avatar{width:48px;height:48px;flex-shrink:0;border-radius:12px;display:grid;place-items:center;font-size:18px;font-weight:750;background:#e8edf6;color:#425f87}.avatar.tone1{background:#f0eaf7;color:#72568b}.avatar.tone2{background:#e8f0ed;color:#3d6a58}.card-identity{flex:1;min-width:0}.contractor h3{font-size:20px;line-height:1.3;letter-spacing:-.3px;margin:0 0 5px;overflow-wrap:anywhere}.card-subtitle{font-size:13px;color:var(--muted);margin:0}.price{text-align:right;flex-shrink:0}.price strong{display:block;font-size:22px;letter-spacing:-.6px}.price small{margin-top:4px;font-size:12px}.reasons{list-style:none;padding:0;display:grid;gap:9px;margin:20px 0 18px}.reasons li{display:flex;gap:9px;font-size:14px;line-height:1.5}.check{color:var(--green);font-weight:700;flex-shrink:0}.card-bottom{border-top:1px solid #edf0f3;padding-top:14px;display:flex;justify-content:space-between;align-items:center;gap:12px}.available{font-size:12px;color:var(--green);background:#eef6f1;border-radius:4px;padding:6px 8px}.details-button{border:0;background:transparent;padding:6px 0;color:#324a63;font-size:14px;font-weight:650}.details-button:hover{color:var(--orange)}.exclusion-note{font-size:12px;line-height:1.6;color:var(--muted);margin:18px 0}.method{font-size:14px;border-top:1px solid var(--line);padding-top:16px;color:var(--muted);line-height:1.6}.method summary{color:var(--ink);font-weight:600}.method p{margin:12px 0}.empty-state{background:white;border:1px dashed #b8c4d0;border-radius:12px;padding:40px 28px;min-height:300px}.empty-icon{font-size:36px;color:var(--orange)}.empty-state h3{font-size:24px;margin:15px 0}.empty-state p,.empty-state li{font-size:16px;line-height:1.65;color:var(--muted)}.empty-state ul{padding-left:20px}.empty-state strong{color:var(--ink)}footer{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin:40px 0 24px;padding-top:22px;border-top:1px solid var(--line);font-size:12px;color:var(--muted)}footer strong{color:var(--ink)}footer p{margin:0;flex:1;line-height:1.6}footer>span{letter-spacing:1px;font-size:12px}dialog{width:min(560px,calc(100% - 32px));border:1px solid var(--line);border-radius:16px;padding:28px;color:var(--ink);max-height:85vh}dialog::backdrop{background:rgba(15,29,45,.48)}.dialog-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}.dialog-header .eyebrow{margin:0}.icon-button{width:36px;height:36px;border:0;background:#edf0f4;border-radius:50%;font-size:24px;color:var(--ink)}#dialog-content h2{font-size:28px;margin:0 0 10px}#dialog-content p{line-height:1.65;color:var(--muted)}#dialog-content h3{font-size:16px;margin-top:24px}#dialog-content li{line-height:1.7;font-size:16px}#dialog-content ul{padding-left:22px}.dialog-price{font-size:30px;font-weight:750}.source-note{font-size:12px!important;border-top:1px solid var(--line);padding-top:16px}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}[hidden]{display:none!important}@media(min-width:1500px){main{padding:0 50px}.topbar{padding-left:max(5%,calc((100vw - 1300px)/2));padding-right:max(5%,calc((100vw - 1300px)/2))}}@media(max-width:1050px){.workspace{grid-template-columns:285px minmax(0,1fr);gap:22px}.intro-note{display:none}.brand-caption{display:none}.card-top{flex-wrap:wrap}.price{margin-left:62px;text-align:left}.price strong{font-size:20px}.price small{display:inline-block}.results-heading{flex-wrap:wrap}.contractor{padding:20px}}@media(max-width:720px){.topbar{padding:16px 5%;min-height:74px;flex-wrap:wrap;gap:12px}.brand{font-size:26px}.demo-badge{font-size:12px;padding:7px 10px}.intro{padding:30px 0 26px}h1{letter-spacing:-.8px}.workspace{grid-template-columns:1fr;gap:30px}.brief-panel{padding:22px}.panel-heading{margin-bottom:18px}form{display:grid;grid-template-columns:1fr}label{margin-top:16px}.card-top{flex-wrap:nowrap}.price{margin-left:0;text-align:right}.price strong{font-size:20px}.contractor h3{font-size:18px}.card-subtitle{font-size:12px}.avatar{width:40px;height:40px;border-radius:10px;font-size:16px}.card-top{gap:10px}.results-heading h2{font-size:22px}footer{display:block}footer p{margin:10px 0}footer>span{display:block;margin-top:18px}}@media(max-width:400px){.card-top{flex-wrap:wrap}.price{margin-left:50px;text-align:left}.card-bottom{align-items:flex-start;flex-direction:column}.results-heading h2{font-size:20px}}@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+
+</style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="Firebird, главная"><span class="brandmark">F</span>firebird<span class="brand-caption">подбор подрядчиков</span></a>
+    <span class="demo-badge">Демо-каталог · <span id="catalog-count">48</span> подрядчиков</span>
+  </header>
+  <main>
+    <section class="intro">
+      <div><p class="eyebrow">ВАШЕ СОБЫТИЕ. ВАША КОМАНДА.</p><h1>Меньше поиска.<br><span>Больше совпадений.</span></h1><p class="intro-copy">До трёх подрядчиков под ваше мероприятие.<br>У каждого — конкретные причины быть в подборке.</p></div>
+      <div class="intro-note"><span class="note-number">03</span><p>подходящих варианта<br>вместо длинного каталога</p></div>
+    </section>
+    <div class="workspace">
+      <aside class="brief-panel">
+        <div class="panel-heading"><span class="step">01</span><h2>О мероприятии</h2></div>
+        <form id="brief-form">
+          <label for="city">Город</label><select id="city" name="city" required><option>Алматы</option><option>Астана</option><option>Шымкент</option></select>
+          <label for="date">Дата мероприятия</label><input id="date" name="date" type="date" required aria-describedby="date-hint"><small id="date-hint">Доступность проверяется на выбранную дату.</small>
+          <label for="format">Формат</label><select id="format" name="format" required><option value="corporate">Корпоратив</option><option value="wedding">Свадьба</option><option value="conference">Конференция</option><option value="birthday">День рождения</option></select>
+          <label for="category">Кого ищем</label><select id="category" name="category" required><option value="host">Ведущий</option><option value="photo">Фотограф</option><option value="decor">Декоратор</option><option value="sound">Звук и свет</option></select>
+          <label for="budget">Бюджет на эту услугу</label><div class="money-input"><input id="budget" name="budget" type="number" min="1" max="100000000" step="1" value="250000" inputmode="numeric" required><span>₸</span></div>
+          <div class="budget-presets" aria-label="Быстрый выбор бюджета"><button type="button" data-budget="150000">150 тыс.</button><button type="button" data-budget="250000">250 тыс.</button><button type="button" data-budget="400000">400 тыс.</button></div>
+          <p id="form-error" class="form-error" role="alert" hidden></p>
+          <button class="primary-button" type="submit">Подобрать подрядчиков <span aria-hidden="true">↗</span></button>
+          <p id="change-hint" class="change-hint" hidden>Параметры изменены. Обновите подборку.</p>
+        </form>
+        <div class="brief-footnote"><span aria-hidden="true">◎</span><p>Подбираем из готового каталога. Условия запроса не меняем.</p></div>
+      </aside>
+      <section class="results-panel" aria-labelledby="results-title" aria-busy="false">
+        <div class="results-heading"><div><p class="eyebrow">02 / ВАША ПОДБОРКА</p><h2 id="results-title">Подходят вашему событию</h2></div><span id="result-count" class="count-badge">3 варианта</span></div>
+        <p id="query-summary" class="query-summary"></p>
+        <div id="results-status" class="sr-only" role="status" aria-live="polite"></div>
+        <div id="results"></div>
+        <p id="exclusion-note" class="exclusion-note"></p>
+        <details class="method"><summary>Как работает подбор</summary><p>Сначала проверяем город, категорию, формат, дату и полную стоимость пакета. Подрядчики с неизвестной ценой или неподтверждённой доступностью не попадают в подборку.</p><p>Среди подходящих выше стоят подрядчики с большим числом мероприятий выбранного формата, затем с меньшей ценой. Все причины берём из полей каталога. В этой версии работают правила, внешняя AI-модель не подключена.</p></details>
+      </section>
+    </div>
+    <footer><strong>Демонстрационный прототип</strong><p>Все подрядчики, цены, опыт и даты вымышлены. Бронирование и связь с подрядчиками недоступны.</p><span>FIREBIRD / HACKALEM AI</span></footer>
+  </main>
+  <dialog id="details-dialog" aria-labelledby="dialog-title"><div class="dialog-header"><span class="eyebrow">КАРТОЧКА ПОДРЯДЧИКА</span><button id="close-dialog" class="icon-button" aria-label="Закрыть карточку">×</button></div><div id="dialog-content"></div></dialog>
+<script>
+(function(root){
+  'use strict';
+  const formats={corporate:'Корпоратив',wedding:'Свадьба',conference:'Конференция',birthday:'День рождения'};
+  const categories={host:'Ведущий',photo:'Фотограф',decor:'Декоратор',sound:'Звук и свет'};
+  const cities=['Алматы','Астана','Шымкент'];
+  const names={host:['Арман Серик','Дана Алиева','Тимур Омар','Айша Нур'],photo:['Свет & кадр','Фокус студия','Moment Lab','Объектив'],decor:['Форма события','Линия декора','Цвет & свет','Бюро деталей'],sound:['Точный звук','Stage Lab','Ритм команды','Световой план']};
+  const packages={host:['Ведение программы — 4 часа','Подготовка сценария и встреча с заказчиком','Работа на русском и казахском языках'],photo:['Съёмка мероприятия — 4 часа','Обработка 100 фотографий','Передача фотографий в течение 10 дней'],decor:['Оформление одной фотозоны','Аренда конструкций и монтаж','Демонтаж после мероприятия'],sound:['Аренда двух колонок и микшерного пульта','Два беспроводных микрофона','Работа звукорежиссёра — 4 часа']};
+  const catalog=[];
+  cities.forEach((city,ci)=>Object.keys(categories).forEach((category,ki)=>names[category].forEach((name,i)=>{
+    const supported=i===2?['wedding','birthday']:i===3?['corporate','conference']:Object.keys(formats);
+    catalog.push({id:`${ci}-${category}-${i}`,name:ci===0?name:`${name} · ${city}`,city,category,formats:supported,price:i===3&&ki===2?null:[180000,220000,130000,160000][i]+ci*10000+ki*20000,
+      priceType:'fixed',package:packages[category],availability:i===3?'unknown':'confirmed',calendarFrom:'2026-01-01',calendarThrough:'2027-12-31',
+      bookedDates:i===0?['2026-10-10','2026-10-17']:i===1?['2026-10-11']:[],
+      eventsByFormat:Object.fromEntries(supported.map((f,fi)=>[f,[32,19,14,9][i]+ki*3+fi*2])),demo:true});
+  })));
+  const data={formats,categories,cities,catalog};
+  if(typeof module!=='undefined'&&module.exports)module.exports=data;
+  root.FirebirdData=data;
+})(typeof globalThis!=='undefined'?globalThis:this);
+
+</script>
+<script>
+(function(root){
+  'use strict';
+  function isDate(value){
+    if(typeof value!=='string'||!/^\d{4}-\d{2}-\d{2}$/.test(value))return false;
+    const d=new Date(value+'T12:00:00Z');
+    return Number.isFinite(d.getTime())&&d.toISOString().slice(0,10)===value;
+  }
+  function validate(query,data){
+    if(!query||typeof query!=='object')throw new Error('Заполните параметры мероприятия.');
+    if(!data.cities.includes(query.city))throw new Error('Выберите город из каталога.');
+    if(!Object.hasOwn(data.formats,query.format))throw new Error('Выберите формат мероприятия.');
+    if(!Object.hasOwn(data.categories,query.category))throw new Error('Выберите категорию подрядчика.');
+    if(!isDate(query.date))throw new Error('Укажите корректную дату мероприятия.');
+    if(typeof query.budget!=='number'||!Number.isInteger(query.budget)||query.budget<1||query.budget>100000000)throw new Error('Введите бюджет от 1 до 100 000 000 ₸ целым числом.');
+    return {...query};
+  }
+  function find(query,data){
+    const q=validate(query,data);
+    const counts={locationCategory:0,format:0,busy:0,unknownDate:0,unknownPrice:0,overBudget:0};
+    const pool=data.catalog.filter(p=>p.city===q.city&&p.category===q.category);
+    counts.locationCategory=pool.length;
+    let minimumPrice=null;
+    const matches=[];
+    for(const p of pool){
+      if(!p.formats.includes(q.format)){counts.format++;continue;}
+      if(p.availability!=='confirmed'||!isDate(p.calendarFrom)||!isDate(p.calendarThrough)||q.date<p.calendarFrom||q.date>p.calendarThrough){counts.unknownDate++;continue;}
+      if(p.bookedDates.includes(q.date)){counts.busy++;continue;}
+      if(p.priceType!=='fixed'||!Number.isFinite(p.price)||p.price<0){counts.unknownPrice++;continue;}
+      minimumPrice=minimumPrice===null?p.price:Math.min(minimumPrice,p.price);
+      if(p.price>q.budget){counts.overBudget++;continue;}
+      matches.push({provider:p,experience:p.eventsByFormat[q.format]||0,saving:q.budget-p.price});
+    }
+    matches.sort((a,b)=>b.experience-a.experience||a.provider.price-b.provider.price||a.provider.id.localeCompare(b.provider.id));
+    return {query:q,matches:matches.slice(0,3),totalMatches:matches.length,counts,minimumPrice};
+  }
+  const api={find,validate,isDate};
+  if(typeof module!=='undefined'&&module.exports)module.exports=api;
+  root.FirebirdMatcher=api;
+})(typeof globalThis!=='undefined'?globalThis:this);
+
+</script>
+<script>
+(function(){
+  'use strict';
+  const data=window.FirebirdData,matcher=window.FirebirdMatcher;
+  const $=id=>document.getElementById(id);
+  const form=$('brief-form'),dialog=$('details-dialog');
+  const money=value=>new Intl.NumberFormat('ru-RU').format(value)+' ₸';
+  const dateText=value=>new Intl.DateTimeFormat('ru-RU',{day:'numeric',month:'long',year:'numeric'}).format(new Date(value+'T12:00:00'));
+  const escape=value=>String(value).replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+  let currentResult;
+  const today=new Date();today.setDate(today.getDate()+7);
+  $('date').value=`${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
+  $('catalog-count').textContent=data.catalog.length;
+  function readQuery(){return {city:$('city').value,date:$('date').value,format:$('format').value,category:$('category').value,budget:Number($('budget').value)};}
+  function syncPresets(){document.querySelectorAll('[data-budget]').forEach(button=>button.setAttribute('aria-pressed',String(Number(button.dataset.budget)===Number($('budget').value))));}
+  function markChanged(){syncPresets();$('change-hint').hidden=false;$('results-title').textContent='Подборка по предыдущему запросу';}
+  function reasons(match,q){return [`${q.city} · ${data.categories[q.category].toLowerCase()} · ${data.formats[q.format].toLowerCase()}`,`${match.experience} мероприятий формата «${data.formats[q.format]}» в демо-портфолио`,match.saving===0?'Стоимость пакета точно в пределах бюджета':`На ${money(match.saving)} ниже бюджета за указанный пакет`];}
+  function render(result){
+    currentResult=result;const q=result.query,n=result.matches.length;
+    $('results-title').textContent=n?'Подходят вашему событию':'Совпадений пока нет';
+    $('result-count').textContent=n===1?'1 вариант':`${n} варианта`;
+    if(n===0)$('result-count').textContent='0 вариантов';
+    $('query-summary').textContent=`${q.city} · ${dateText(q.date)} · ${data.formats[q.format]} · ${data.categories[q.category]} · до ${money(q.budget)}`;
+    $('results').innerHTML=n?result.matches.map((m,i)=>{
+      const p=m.provider,initials=p.name.split(' ').slice(0,2).map(x=>x[0]).join('');
+      return `<article class="contractor ${i===0?'best':''}">${i===0?'<span class="best-label">Больше опыта в вашем формате</span>':''}<div class="card-top"><div class="avatar tone${i}" aria-hidden="true">${escape(initials)}</div><div class="card-identity"><h3>${escape(p.name)}</h3><p class="card-subtitle">${escape(data.categories[p.category])} · ${escape(p.city)}</p></div><div class="price"><strong>${money(p.price)}</strong><small>за пакет услуг</small></div></div><ul class="reasons">${reasons(m,q).map(r=>`<li><span class="check" aria-hidden="true">✓</span><span>${escape(r)}</span></li>`).join('')}</ul><div class="card-bottom"><span class="available">Свободен ${escape(dateText(q.date))} · демо</span><button type="button" class="details-button" data-provider="${escape(p.id)}" aria-label="Подробнее: ${escape(p.name)}">Что входит в стоимость ↗</button></div></article>`;
+    }).join(''):emptyMarkup(result);
+    const c=result.counts,notes=[];
+    if(c.busy)notes.push(`заняты на дату: ${c.busy}`);
+    if(c.unknownDate)notes.push(`нет подтверждения доступности: ${c.unknownDate}`);
+    if(c.unknownPrice)notes.push(`неизвестна полная стоимость: ${c.unknownPrice}`);
+    if(c.overBudget)notes.push(`выше бюджета: ${c.overBudget}`);
+    if(c.format)notes.push(`другой формат: ${c.format}`);
+    $('exclusion-note').textContent=`В городе и категории: ${c.locationCategory}. ${notes.length?'Не включены — '+notes.join('; ')+'.':''}${result.totalMatches>3?' Показаны три лучших из '+result.totalMatches+'.':''}`;
+    $('results-status').textContent=n?`Подборка обновлена. Найдено ${n} подходящих вариантов.`:'Подборка обновлена. Подходящих подрядчиков нет.';
+    $('change-hint').hidden=true;$('form-error').hidden=true;syncPresets();
+  }
+  function emptyMarkup(result){
+    const hints=[],c=result.counts;
+    if(result.minimumPrice!==null&&result.minimumPrice>result.query.budget)hints.push(`На эту дату подходящие пакеты начинаются от <strong>${money(result.minimumPrice)}</strong>. Можно изменить бюджет и повторить поиск.`);
+    if(c.busy)hints.push('Часть подрядчиков занята. Попробуйте другую дату мероприятия.');
+    if(c.unknownDate||c.unknownPrice)hints.push('Для части каталога нужно уточнить доступность или полную стоимость. Такие предложения не выдаём за подтверждённые совпадения.');
+    if(!hints.length)hints.push('Попробуйте другой формат или категорию. В демонстрационном каталоге представлены не все сочетания.');
+    return `<div class="empty-state"><span class="empty-icon" aria-hidden="true">⌕</span><h3>Под этот запрос нет вариантов</h3><p>Сохранили ваши ограничения по дате и бюджету.</p><ul>${hints.map(h=>`<li>${h}</li>`).join('')}</ul></div>`;
+  }
+  function run(query){const result=matcher.find(query,data);render(result);return result;}
+  form.addEventListener('submit',event=>{event.preventDefault();try{run(readQuery());}catch(error){$('form-error').textContent=error.message;$('form-error').hidden=false;}});
+  form.addEventListener('input',markChanged);form.addEventListener('change',markChanged);
+  document.querySelectorAll('[data-budget]').forEach(button=>button.addEventListener('click',()=>{$('budget').value=button.dataset.budget;markChanged();}));
+  $('results').addEventListener('click',event=>{
+    const button=event.target.closest('[data-provider]');if(!button)return;
+    const match=currentResult.matches.find(m=>m.provider.id===button.dataset.provider);if(!match)return;
+    const p=match.provider,q=currentResult.query;
+    $('dialog-content').innerHTML=`<h2 id="dialog-title">${escape(p.name)}</h2><p>${escape(p.city)} · ${escape(data.categories[p.category])}</p><div class="dialog-price">${money(p.price)}</div><h3>В стоимость включено</h3><ul>${p.package.map(item=>`<li>${escape(item)}</li>`).join('')}</ul><h3>Почему в подборке</h3><ul>${reasons(match,q).map(r=>`<li>${escape(r)}</li>`).join('')}</ul><p>Свободен на ${escape(dateText(q.date))} по демонстрационному календарю.</p><p class="source-note">Источник: вымышленная запись демо-каталога, ID ${escape(p.id)}. Цена относится только к перечисленному пакету. Реальное предложение и бронирование отсутствуют.</p>`;
+    dialog.showModal();
+  });
+  $('close-dialog').addEventListener('click',()=>dialog.close());
+  dialog.addEventListener('click',event=>{if(event.target===dialog){const r=dialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)dialog.close();}});
+  run(readQuery());
+  if(document.modelContext?.registerTool){
+    const lifecycle=new AbortController();window.addEventListener('pagehide',()=>lifecycle.abort(),{once:true});
+    const schema={type:'object',properties:{city:{type:'string',enum:data.cities},date:{type:'string',description:'Дата в формате YYYY-MM-DD'},format:{type:'string',enum:Object.keys(data.formats)},category:{type:'string',enum:Object.keys(data.categories)},budget:{type:'integer',minimum:1,maximum:100000000}},required:['city','date','format','category','budget'],additionalProperties:false};
+    try{Promise.resolve(document.modelContext.registerTool({name:'configure_contractor_search',title:'Подобрать подрядчиков',description:'Обновляет форму и видимую подборку до трёх вымышленных подрядчиков. Не создаёт бронь.',inputSchema:schema,annotations:{readOnlyHint:false,untrustedContentHint:false},execute(input){const query=matcher.validate(input,data);const result=matcher.find(query,data);for(const key of ['city','date','format','category','budget'])$(key).value=query[key];render(result);return {demo:true,matches:result.matches.map(m=>({id:m.provider.id,name:m.provider.name,price:m.provider.price,reasons:reasons(m,query)})),excluded:result.counts};}},{signal:lifecycle.signal})).catch(()=>{});}catch(error){/* Optional browser API; regular form remains available. */}
+  }
+})();
+
+</script>
+</body>
+</html>
