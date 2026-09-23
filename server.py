@@ -32,6 +32,7 @@ STATIC_FILES = frozenset({
     "index.html", "Firebird.html", "styles.css", "ux.css", "community.css",
     "bento.css", "theme.css", "theme.js", "catalog.js", "matcher.js", "app.js", "ux.js",
     "community-data.js", "community.js", "bento.js", "accounts.css", "accounts.js",
+    "assistant.js", "assistant.css", "translations.js", "account-translations.js", "i18n.js", "ai-config.json",
 })
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS users (
