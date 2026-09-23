@@ -1,0 +1,141 @@
+```html
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>RAMPAGE</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: Arial, Helvetica, sans-serif;
+            background:
+                radial-gradient(circle at top, #2a0f0f 0%, #111 45%, #080808 100%);
+            color: white;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 850px;
+            text-align: center;
+
+            padding: 70px 40px;
+
+            background: rgba(25, 25, 25, 0.85);
+            border: 1px solid #333;
+            border-radius: 24px;
+
+            box-shadow:
+                0 20px 80px rgba(0, 0, 0, 0.6);
+        }
+
+        .logo {
+            font-size: clamp(50px, 10vw, 100px);
+            font-weight: 900;
+            letter-spacing: 8px;
+
+            background: linear-gradient(
+                90deg,
+                #ffffff,
+                #ff4b4b
+            );
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+
+            margin-bottom: 20px;
+        }
+
+        .subtitle {
+            color: #aaa;
+            font-size: 20px;
+            margin-bottom: 40px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .button {
+            display: inline-block;
+
+            padding: 14px 28px;
+
+            border-radius: 12px;
+
+            background: #fff;
+            color: #111;
+
+            text-decoration: none;
+            font-weight: bold;
+
+            transition: 0.2s ease;
+        }
+
+        .button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.15);
+        }
+
+        .button.secondary {
+            background: transparent;
+            color: white;
+            border: 1px solid #444;
+        }
+
+        .footer {
+            margin-top: 45px;
+            color: #555;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="container">
+
+        <h1 class="logo">RAMPAGE</h1>
+
+        <p class="subtitle">
+            Новый проект. Новая история.
+        </p>
+
+        <div class="buttons">
+
+            <a href="#" class="button">
+                Начать
+            </a>
+
+            <a href="https://github.com/imfrqte/Rampage"
+               class="button secondary"
+               target="_blank">
+                GitHub
+            </a>
+
+        </div>
+
+        <div class="footer">
+            © 2026 RAMPAGE
+        </div>
+
+    </main>
+
+</body>
+</html>
+```
