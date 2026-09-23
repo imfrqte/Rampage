@@ -29,7 +29,7 @@
   }
   const observer=new MutationObserver(()=>{if(!pending){pending=true;queueMicrotask(refresh);}});
   const controls=document.createElement('div');controls.className='locale-switch';controls.setAttribute('role','group');controls.setAttribute('aria-label','Язык интерфейса');
-  controls.innerHTML='<button type="button" data-locale="ru" lang="ru">RU</button><button type="button" data-locale="kk" lang="kk">Қазақша</button><button type="button" data-locale="en" lang="en">EN</button>';document.querySelector('.topbar').append(controls);
+  controls.innerHTML='<button type="button" data-locale="ru" lang="ru">RU</button><button type="button" data-locale="kk" lang="kk">KZ</button><button type="button" data-locale="en" lang="en">EN</button>';document.querySelector('.topbar').append(controls);
   function setLocale(next){if(!supported.includes(next))return;locale=next;try{localStorage.setItem(key,locale);const url=new URL(location.href);url.searchParams.set('lang',locale);history.replaceState(null,'',url);}catch{}document.dispatchEvent(new CustomEvent('firebird:locale',{detail:{locale}}));refresh();}
   controls.addEventListener('click',e=>{const button=e.target.closest('[data-locale]');if(button)setLocale(button.dataset.locale);});
   window.FirebirdI18n={get locale(){return locale;},text:source=>window.FirebirdTranslations.text(source,locale),setLocale,refresh};
