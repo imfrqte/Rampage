@@ -5,742 +5,305 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>RAMPAGE — Новый уровень</title>
+    <title>RAMPAGE</title>
 
-    <meta
-        name="description"
-        content="RAMPAGE — современный цифровой проект. Создаём. Развиваем. Двигаемся вперёд."
-    >
-
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
-
-        :root {
-            --bg: #070707;
-            --bg-secondary: #101010;
-            --card: rgba(255, 255, 255, 0.045);
-            --border: rgba(255, 255, 255, 0.09);
-            --text: #ffffff;
-            --muted: #888;
-            --accent: #ff3b30;
-            --accent-dark: #a9140d;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: "Inter", Arial, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            overflow-x: hidden;
-        }
-
-        /* BACKGROUND */
-
-        body::before {
-            content: "";
-            position: fixed;
-            width: 700px;
-            height: 700px;
-            top: -350px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--accent);
-            opacity: 0.08;
-            filter: blur(150px);
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        /* NAVBAR */
-
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 100;
-
-            background: rgba(7, 7, 7, 0.72);
-            backdrop-filter: blur(18px);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-
-        nav {
-            width: min(1150px, 90%);
-            height: 72px;
-            margin: auto;
-
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .logo {
-            color: white;
-            text-decoration: none;
-            font-size: 22px;
-            font-weight: 900;
-            letter-spacing: 4px;
-        }
-
-        .logo span {
-            color: var(--accent);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 32px;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: #aaa;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
-            transition: 0.2s;
-        }
-
-        .nav-links a:hover {
-            color: white;
-        }
-
-        .nav-button {
-            text-decoration: none;
-            color: white;
-            border: 1px solid var(--border);
-            padding: 10px 18px;
-            border-radius: 10px;
-            font-size: 14px;
-            transition: 0.2s;
-        }
-
-        .nav-button:hover {
-            background: white;
-            color: black;
-        }
-
-        /* HERO */
-
-        .hero {
-            min-height: 100vh;
-            width: min(1150px, 90%);
-            margin: auto;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            text-align: center;
-            padding-top: 72px;
-        }
-
-        .hero-content {
-            max-width: 900px;
-        }
-
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-
-            padding: 8px 14px;
-            border-radius: 999px;
-
-            background: rgba(255,255,255,0.04);
-            border: 1px solid var(--border);
-
-            color: #aaa;
-            font-size: 13px;
-
-            margin-bottom: 28px;
-        }
-
-        .badge-dot {
-            width: 7px;
-            height: 7px;
-            border-radius: 50%;
-            background: #32d74b;
-            box-shadow: 0 0 12px #32d74b;
-        }
-
-        h1 {
-            font-size: clamp(65px, 13vw, 150px);
-            line-height: 0.85;
-            letter-spacing: -7px;
-            font-weight: 900;
-
-            background: linear-gradient(
-                180deg,
-                #ffffff 20%,
-                #777 100%
-            );
-
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-
-            margin-bottom: 32px;
-        }
-
-        .hero p {
-            max-width: 620px;
-            margin: auto;
-
-            color: #999;
-            font-size: 18px;
-            line-height: 1.7;
-        }
-
-        .hero-buttons {
-            margin-top: 38px;
-
-            display: flex;
-            justify-content: center;
-            gap: 14px;
-            flex-wrap: wrap;
-        }
-
-        .button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-
-            min-width: 150px;
-            padding: 15px 25px;
-
-            border-radius: 12px;
-
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 700;
-
-            transition:
-                transform 0.2s,
-                box-shadow 0.2s,
-                background 0.2s;
-        }
-
-        .button-primary {
-            color: white;
-            background: var(--accent);
-
-            box-shadow:
-                0 0 30px rgba(255, 59, 48, 0.18);
-        }
-
-        .button-primary:hover {
-            transform: translateY(-3px);
-            background: #ff5046;
-
-            box-shadow:
-                0 12px 40px rgba(255, 59, 48, 0.3);
-        }
-
-        .button-secondary {
-            color: white;
-            border: 1px solid var(--border);
-            background: rgba(255,255,255,0.03);
-        }
-
-        .button-secondary:hover {
-            transform: translateY(-3px);
-            background: rgba(255,255,255,0.08);
-        }
-
-        /* SECTIONS */
-
-        section {
-            width: min(1150px, 90%);
-            margin: auto;
-            padding: 110px 0;
-        }
-
-        .section-title {
-            font-size: 42px;
-            font-weight: 800;
-            letter-spacing: -2px;
-            margin-bottom: 15px;
-        }
-
-        .section-description {
-            color: var(--muted);
-            line-height: 1.7;
-            max-width: 600px;
-            margin-bottom: 45px;
-        }
-
-        /* STATS */
-
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
-        }
-
-        .stat {
-            padding: 30px;
-            border: 1px solid var(--border);
-            background: var(--card);
-            border-radius: 18px;
-        }
-
-        .stat-number {
-            font-size: 38px;
-            font-weight: 800;
-            margin-bottom: 8px;
-        }
-
-        .stat-text {
-            color: #777;
-            font-size: 14px;
-        }
-
-        /* FEATURES */
-
-        .features {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 18px;
-        }
-
-        .feature {
-            padding: 32px;
-            min-height: 230px;
-
-            border: 1px solid var(--border);
-            border-radius: 20px;
-
-            background:
-                linear-gradient(
-                    145deg,
-                    rgba(255,255,255,0.06),
-                    rgba(255,255,255,0.015)
-                );
-
-            transition: 0.25s;
-        }
-
-        .feature:hover {
-            transform: translateY(-6px);
-            border-color: rgba(255,59,48,0.35);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.25);
-        }
-
-        .feature-icon {
-            width: 45px;
-            height: 45px;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            border-radius: 12px;
-
-            background: rgba(255,59,48,0.1);
-            color: var(--accent);
-
-            font-size: 21px;
-            margin-bottom: 25px;
-        }
-
-        .feature h3 {
-            font-size: 19px;
-            margin-bottom: 12px;
-        }
-
-        .feature p {
-            color: #777;
-            line-height: 1.6;
-            font-size: 14px;
-        }
-
-        /* CTA */
-
-        .cta {
-            position: relative;
-            overflow: hidden;
-
-            padding: 75px 40px;
-
-            border-radius: 28px;
-            border: 1px solid var(--border);
-
-            text-align: center;
-
-            background:
-                radial-gradient(
-                    circle at center,
-                    rgba(255,59,48,0.14),
-                    transparent 65%
-                ),
-                #101010;
-        }
-
-        .cta h2 {
-            font-size: clamp(32px, 6vw, 60px);
-            letter-spacing: -3px;
-            margin-bottom: 18px;
-        }
-
-        .cta p {
-            color: #888;
-            margin-bottom: 30px;
-        }
-
-        /* FOOTER */
-
-        footer {
-            width: min(1150px, 90%);
-            margin: auto;
-
-            padding: 35px 0;
-
-            border-top: 1px solid var(--border);
-
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-
-            color: #555;
-            font-size: 13px;
-        }
-
-        footer a {
-            color: #777;
-            text-decoration: none;
-        }
-
-        footer a:hover {
-            color: white;
-        }
-
-        /* ANIMATION */
-
-        @keyframes fadeUp {
-            from {
-                opacity: 0;
-                transform: translateY(25px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .hero-content > * {
-            animation: fadeUp 0.8s ease both;
-        }
-
-        .hero-content .badge {
-            animation-delay: 0.05s;
-        }
-
-        .hero-content h1 {
-            animation-delay: 0.15s;
-        }
-
-        .hero-content p {
-            animation-delay: 0.25s;
-        }
-
-        .hero-buttons {
-            animation: fadeUp 0.8s 0.35s ease both;
-        }
-
-        /* MOBILE */
-
-        @media (max-width: 800px) {
-
-            .nav-links {
-                display: none;
-            }
-
-            .nav-button {
-                padding: 9px 14px;
-            }
-
-            h1 {
-                letter-spacing: -4px;
-            }
-
-            .stats,
-            .features {
-                grid-template-columns: 1fr;
-            }
-
-            .section-title {
-                font-size: 34px;
-            }
-
-            section {
-                padding: 80px 0;
-            }
-
-            footer {
-                flex-direction: column;
-                gap: 15px;
-                text-align: center;
-            }
-        }
-
-        @media (max-width: 500px) {
-
-            .hero {
-                padding-top: 90px;
-            }
-
-            .hero p {
-                font-size: 16px;
-            }
-
-            .button {
-                width: 100%;
-            }
-
-            .cta {
-                padding: 55px 20px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<header>
-    <nav>
+    <div class="cursor-glow"></div>
 
-        <a href="#" class="logo">
-            RAMP<span>AGE</span>
-        </a>
+    <header class="header">
+        <nav class="navbar">
 
-        <ul class="nav-links">
-            <li><a href="#about">О проекте</a></li>
-            <li><a href="#features">Возможности</a></li>
-            <li><a href="#contact">Контакты</a></li>
-        </ul>
+            <a href="#" class="logo">
+                RAMP<span>AGE</span>
+            </a>
 
-        <a
-            href="https://github.com/imfrqte/Rampage"
-            target="_blank"
-            class="nav-button"
-        >
-            GitHub
-        </a>
-
-    </nav>
-</header>
-
-
-<main>
-
-    <!-- HERO -->
-
-    <section class="hero">
-
-        <div class="hero-content">
-
-            <div class="badge">
-                <span class="badge-dot"></span>
-                Проект развивается
+            <div class="nav-links">
+                <a href="#about">О проекте</a>
+                <a href="#features">Возможности</a>
+                <a href="#team">Команда</a>
             </div>
-
-            <h1>RAMPAGE</h1>
-
-            <p>
-                Мы создаём современные решения,
-                объединяя технологии, идеи и людей
-                в одном проекте.
-            </p>
-
-            <div class="hero-buttons">
-
-                <a href="#about" class="button button-primary">
-                    Узнать больше
-                </a>
-
-                <a
-                    href="https://github.com/imfrqte/Rampage"
-                    target="_blank"
-                    class="button button-secondary"
-                >
-                    Открыть GitHub
-                </a>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- ABOUT -->
-
-    <section id="about">
-
-        <h2 class="section-title">
-            Rampage в цифрах
-        </h2>
-
-        <p class="section-description">
-            Небольшой проект сегодня может стать большим
-            продуктом завтра. Мы строим его постепенно,
-            уделяя внимание каждой детали.
-        </p>
-
-        <div class="stats">
-
-            <div class="stat">
-                <div class="stat-number">01</div>
-                <div class="stat-text">
-                    Единая команда
-                </div>
-            </div>
-
-            <div class="stat">
-                <div class="stat-number">24/7</div>
-                <div class="stat-text">
-                    Развитие проекта
-                </div>
-            </div>
-
-            <div class="stat">
-                <div class="stat-number">∞</div>
-                <div class="stat-text">
-                    Идей для развития
-                </div>
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- FEATURES -->
-
-    <section id="features">
-
-        <h2 class="section-title">
-            Что внутри
-        </h2>
-
-        <p class="section-description">
-            Основные направления проекта, которые можно
-            расширять по мере разработки.
-        </p>
-
-        <div class="features">
-
-            <article class="feature">
-
-                <div class="feature-icon">
-                    ⚡
-                </div>
-
-                <h3>
-                    Скорость
-                </h3>
-
-                <p>
-                    Минимум лишнего. Быстрый интерфейс
-                    и простая структура проекта.
-                </p>
-
-            </article>
-
-
-            <article class="feature">
-
-                <div class="feature-icon">
-                    ◈
-                </div>
-
-                <h3>
-                    Современный дизайн
-                </h3>
-
-                <p>
-                    Тёмная визуальная система, адаптивность
-                    и аккуратные анимации.
-                </p>
-
-            </article>
-
-
-            <article class="feature">
-
-                <div class="feature-icon">
-                    ◆
-                </div>
-
-                <h3>
-                    Масштабирование
-                </h3>
-
-                <p>
-                    Структура позволяет добавлять новые
-                    страницы, функции и сервисы.
-                </p>
-
-            </article>
-
-        </div>
-
-    </section>
-
-
-    <!-- CTA -->
-
-    <section id="contact">
-
-        <div class="cta">
-
-            <h2>
-                Готовы начать?
-            </h2>
-
-            <p>
-                Следи за развитием Rampage на GitHub.
-            </p>
 
             <a
                 href="https://github.com/imfrqte/Rampage"
                 target="_blank"
-                class="button button-primary"
+                class="github-btn"
             >
-                Перейти в GitHub
+                GitHub ↗
             </a>
 
+            <button class="menu-btn" id="menuBtn">
+                ☰
+            </button>
+
+        </nav>
+    </header>
+
+
+    <main>
+
+        <!-- HERO -->
+
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <div class="status">
+                    <span></span>
+                    PROJECT IN DEVELOPMENT
+                </div>
+
+                <h1>
+                    RAMPAGE
+                </h1>
+
+                <p>
+                    Мы создаём цифровые продукты,
+                    объединяя технологии, дизайн
+                    и сильные идеи.
+                </p>
+
+                <div class="hero-buttons">
+
+                    <a href="#about" class="btn primary">
+                        Исследовать
+                    </a>
+
+                    <a
+                        href="https://github.com/imfrqte/Rampage"
+                        target="_blank"
+                        class="btn secondary"
+                    >
+                        GitHub
+                    </a>
+
+                </div>
+
+            </div>
+
+            <div class="scroll">
+                SCROLL DOWN
+                <span>↓</span>
+            </div>
+
+        </section>
+
+
+        <!-- ABOUT -->
+
+        <section class="section" id="about">
+
+            <div class="section-label">
+                01 / ABOUT
+            </div>
+
+            <div class="section-heading">
+                <h2>
+                    Создаём<br>
+                    <span>нечто большее.</span>
+                </h2>
+
+                <p>
+                    Rampage — проект, который развивается
+                    вместе с нашей командой. Здесь идеи
+                    превращаются в реальные решения.
+                </p>
+            </div>
+
+            <div class="stats">
+
+                <div class="stat reveal">
+                    <strong data-count="3">0</strong>
+                    <span>Участника</span>
+                </div>
+
+                <div class="stat reveal">
+                    <strong data-count="100">0</strong>
+                    <span>% энергии</span>
+                </div>
+
+                <div class="stat reveal">
+                    <strong>∞</strong>
+                    <span>Возможностей</span>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- FEATURES -->
+
+        <section class="section" id="features">
+
+            <div class="section-label">
+                02 / FEATURES
+            </div>
+
+            <div class="section-heading">
+
+                <h2>
+                    Что мы<br>
+                    <span>создаём.</span>
+                </h2>
+
+            </div>
+
+            <div class="features">
+
+                <article class="feature reveal">
+
+                    <div class="feature-number">
+                        01
+                    </div>
+
+                    <div class="feature-icon">
+                        ⚡
+                    </div>
+
+                    <h3>
+                        Быстро
+                    </h3>
+
+                    <p>
+                        Разрабатываем решения без
+                        лишней сложности и бюрократии.
+                    </p>
+
+                </article>
+
+
+                <article class="feature reveal">
+
+                    <div class="feature-number">
+                        02
+                    </div>
+
+                    <div class="feature-icon">
+                        ◇
+                    </div>
+
+                    <h3>
+                        Красиво
+                    </h3>
+
+                    <p>
+                        Продумываем визуальную часть,
+                        интерфейс и пользовательский опыт.
+                    </p>
+
+                </article>
+
+
+                <article class="feature reveal">
+
+                    <div class="feature-number">
+                        03
+                    </div>
+
+                    <div class="feature-icon">
+                        ⌁
+                    </div>
+
+                    <h3>
+                        Масштабируемо
+                    </h3>
+
+                    <p>
+                        Архитектура позволяет развивать
+                        проект и добавлять новые функции.
+                    </p>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- TEAM -->
+
+        <section class="section team" id="team">
+
+            <div class="section-label">
+                03 / TEAM
+            </div>
+
+            <div class="team-box reveal">
+
+                <div>
+
+                    <span class="small">
+                        THREE MINDS
+                    </span>
+
+                    <h2>
+                        Один проект.
+                    </h2>
+
+                    <p>
+                        Три человека, одна цель —
+                        создать что-то действительно интересное.
+                    </p>
+
+                </div>
+
+                <div class="team-number">
+                    03
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- CTA -->
+
+        <section class="cta">
+
+            <div class="cta-content reveal">
+
+                <span>
+                    READY?
+                </span>
+
+                <h2>
+                    LET'S<br>
+                    RAMPAGE.
+                </h2>
+
+                <a
+                    href="https://github.com/imfrqte/Rampage"
+                    target="_blank"
+                    class="btn primary"
+                >
+                    Открыть GitHub ↗
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+
+        <div>
+            © 2026 RAMPAGE
         </div>
 
-    </section>
+        <div>
+            BUILT WITH CODE
+        </div>
 
-</main>
+    </footer>
 
 
-<footer>
-
-    <span>
-        © 2026 RAMPAGE
-    </span>
-
-    <a
-        href="https://github.com/imfrqte/Rampage"
-        target="_blank"
-    >
-        GitHub
-    </a>
-
-</footer>
+    <script src="script.js"></script>
 
 </body>
 </html>
