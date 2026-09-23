@@ -72,6 +72,28 @@ body:has(dialog[open]){overflow:hidden}
 @media(prefers-reduced-motion:no-preference){.contractor{animation:card-arrive .32s ease both}.contractor:nth-child(2){animation-delay:.05s}.contractor:nth-child(3){animation-delay:.1s}@keyframes card-arrive{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}}
 
 </style>
+  <style>
+.catalog-tabs{display:flex;gap:6px;padding:5px;background:#e9eee3;border:1px solid #dce4d4;border-radius:12px;margin-bottom:24px}
+.catalog-tabs button{flex:1;min-height:46px;border:0;border-radius:8px;background:none;color:#57654e;font-size:13px;font-weight:600;padding:10px 12px;line-height:1.5}
+.catalog-tabs button[aria-selected=true]{background:#fff;color:#243f39;box-shadow:0 2px 8px #243f3910}
+.catalog-tabs span{display:inline-grid;place-items:center;min-width:23px;height:23px;margin-left:5px;border-radius:6px;background:#edf2e8;font-size:11px}
+.favorites-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:28px 0 12px}.favorites-heading h2{font-size:25px}.favorite-context{font-size:12px;line-height:1.7;color:var(--muted);margin:18px 0}.favorite-card{margin-top:18px}
+.avatar.portrait-avatar{width:64px;height:64px;background:transparent;border-radius:16px;overflow:hidden}.portrait-avatar svg,.review-avatar svg,.profile-portrait svg{display:block;width:100%;height:100%}
+.rating-preview{display:flex;align-items:center;gap:8px;background:none;border:0;padding:10px 0;min-height:44px;margin:9px 0 -4px;color:#56634e;font-size:12px}.rating-preview strong{color:#36482e}.rating-mini{font-size:19px;color:#a65c18}.rating-preview:hover{text-decoration:underline;text-underline-offset:3px}
+.profile-portrait{width:84px;height:84px;margin-bottom:16px;border-radius:22px;overflow:hidden}
+#details-dialog .dialog-header{position:sticky;top:0;z-index:2;background:#fff;padding:10px 0;box-shadow:0 -24px 0 #fff;border-bottom:1px solid var(--line)}
+.profile-reviews{border-top:1px solid var(--line);padding-top:25px;margin-top:30px;scroll-margin-top:20px}.profile-reviews:focus-visible{outline:2px solid var(--green);outline-offset:5px;border-radius:8px}
+.reviews-heading{display:flex;justify-content:space-between;align-items:center;gap:16px}.reviews-heading #reviews-title{font-size:27px;margin:0}.reviews-heading .eyebrow{font-size:9px!important;margin:0 0 7px!important;letter-spacing:1.4px;line-height:1.6!important}
+.rating-summary{display:flex;align-items:center;gap:7px;white-space:nowrap}.rating-summary>span:first-child{color:#a65c18;font-size:27px}.rating-summary strong{font-size:29px;font-weight:600}.rating-summary>span:last-child{font-size:12px;color:var(--muted)}.rating-summary small{font-size:10px;margin-top:0}
+#dialog-content .reviews-disclaimer{font-size:12px;line-height:1.7;background:#fbf0e6;border:1px solid #f0decf;color:#825031;border-radius:8px;padding:12px 14px;margin:18px 0 22px}
+.review-card{padding:20px 0;border-bottom:1px solid var(--line)}.review-card header{display:flex;align-items:center;gap:11px}.review-avatar{width:46px;height:46px;flex-shrink:0;overflow:hidden;border-radius:50%}.review-author{flex:1;min-width:0}.review-author h4{font-size:14px;font-weight:600;margin:0 0 3px;overflow-wrap:anywhere}.review-author time{font-size:11px;color:var(--muted)}.review-stars{font-size:18px;letter-spacing:1px;white-space:nowrap;color:#a65c18}#dialog-content .review-card p{font-size:14px;color:#40513c;white-space:pre-wrap;overflow-wrap:anywhere;margin:13px 0}.review-meta{display:flex;align-items:center;justify-content:space-between;gap:10px}.review-label{font-size:10px;background:#f2f0e8;color:#796648;border-radius:4px;padding:4px 7px}.remove-review{border:0;background:none;color:#93402d;min-height:44px;font-size:12px;text-decoration:underline}.own-reviews-title{font-size:13px;color:#416338;margin-top:20px}
+.write-review{margin-top:24px;border:1px solid var(--line);border-radius:12px;padding:18px;background:#fafbf7}.write-review summary{font-size:15px;font-weight:600;list-style:none;display:flex;justify-content:space-between;align-items:center;min-height:32px}.write-review summary::-webkit-details-marker{display:none}#dialog-content .review-privacy{font-size:12px;line-height:1.7}.review-name-fields{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.rating-input{border:0;padding:0;margin:22px 0}.rating-input legend{font-size:12px;font-weight:650;margin-bottom:8px}.rating-input>div{display:flex;gap:8px}.rating-option{position:relative;margin:0;display:grid;place-items:center;width:44px;height:44px;background:white;border:1px solid #d8dfd2;border-radius:7px;cursor:pointer}.rating-option input{position:absolute;inset:0;margin:0;opacity:0;width:100%;height:100%;cursor:pointer}.rating-option span{font-size:26px;color:#a7aea2;pointer-events:none}.rating-option.selected{background:#fff0dc;border-color:#bf8547}.rating-option.selected span{color:#a65c18}.rating-option:focus-within{outline:3px solid var(--green);outline-offset:3px}.rating-input output{font-size:11px;color:var(--muted);display:block;margin-top:9px}
+#review-text{display:block;width:100%;resize:vertical;min-height:110px;max-height:400px;padding:12px;font:inherit;font-size:14px;line-height:1.7;border:1px solid #d9dfd7;border-radius:8px;background:white;color:var(--ink)}#review-text:focus{outline:2px solid var(--green);outline-offset:2px}#dialog-content .review-status{font-size:12px;color:#3e683a}.review-status:empty{display:none}
+@media(max-width:1050px){.topnav{gap:14px}.topnav a{font-size:12px}.topbar .demo-badge{display:none}}
+@media(max-width:700px){.topnav a{font-size:11px}.topnav a[href="#method"]{display:none}.catalog-tabs{gap:3px}.catalog-tabs button{font-size:12px;padding:9px 7px}.catalog-tabs span{margin-left:2px}.favorites-heading{align-items:flex-start}.favorites-heading h2{font-size:22px}.portrait-avatar.avatar{width:56px;height:56px}.card-identity{flex-basis:auto}.review-name-fields{grid-template-columns:1fr;gap:0}.review-card header{flex-wrap:wrap}.review-stars{margin-left:57px}.review-author{flex-basis:calc(100% - 60px)}.rating-summary{gap:4px}.rating-summary strong{font-size:25px}.reviews-heading{gap:10px}.reviews-heading .eyebrow{letter-spacing:.8px}.write-review{padding:14px}#review-text{font-size:16px}.favorite-card .card-top{flex-wrap:wrap}.favorite-card .card-identity{flex:1 1 calc(100% - 76px)}}
+
+</style>
 </head>
 <body>
   <a class="skip-link" href="#workspace">Перейти к подбору</a>
@@ -301,12 +323,19 @@ body:has(dialog[open]){overflow:hidden}
   form.addEventListener('input',markChanged);form.addEventListener('change',markChanged);
   document.querySelectorAll('[data-budget]').forEach(button=>button.addEventListener('click',()=>{$('budget').value=button.dataset.budget;markChanged();}));
   document.querySelectorAll('[data-example]').forEach(button=>button.addEventListener('click',()=>{const q=examples[button.dataset.example];setForm(q);run(q);document.querySelector('.demo-queries').open=false;document.querySelector('.optional-fields').open=Boolean(q.language||q.hours);}));
-  $('results').addEventListener('click',event=>{
+  document.addEventListener('click',event=>{
     const button=event.target.closest('[data-provider]');if(!button)return;
-    const m=currentResult.matches.find(item=>item.provider.id===button.dataset.provider);if(!m)return;
+    const provider=data.catalog.find(item=>item.id===button.dataset.provider);if(!provider)return;
+    const m=currentResult.matches.find(item=>item.provider.id===provider.id)||{provider,score:matcher.evidence(provider,currentResult.query,data).terms.length,explanation:'Профиль открыт из избранного. Он может не соответствовать последнему запросу. Проверьте условия и календарь в сравнении избранных.'};
     const p=m.provider,q=currentResult.query;
     $('dialog-content').innerHTML=`<h2 id="dialog-title">${esc(p.anon_name)}</h2><p>${esc(p.city)} · ${esc(p.categories.join(', '))}</p><div class="provenance">${provenance(p)}</div><div class="dialog-price">от ${money(p.price_from_kzt)}</div><p class="price-note">Цена за мероприятие, не почасовая. Итоговая смета неизвестна.</p><h3>Совпадение с запросом</h3><p>${esc(m.explanation)}</p><h3>Данные профиля</h3><dl class="facts"><dt>Форматы</dt><dd>${esc(p.event_formats.join(', '))}</dd><dt>Языки</dt><dd>${esc(p.languages.join(', '))}</dd><dt>Лимит присутствия</dt><dd>${p.max_hours===null?'Не привязан к присутствию':p.max_hours+' ч'}</dd><dt>На выбранную дату</dt><dd>${esc(dateText(q.date))} не входит в busy_dates</dd><dt>Место в подборке</dt><dd>Тематических признаков описания: ${m.score}; затем учитываем заполненные при подготовке поля, цену и ID</dd></dl><h3>Описание из датасета</h3><p class="original-description">${esc(p.description)}</p><p class="source-note">Источник: ${esc(data.source.filename)}, запись ${esc(p.id)}. Календарь только 23.09–31.12.2026. Описания — сведения из предоставленного датасета, не независимая проверка.</p>`;
+    // The calendar statement must also be correct for saved profiles outside the results.
+    const facts=$('dialog-content').querySelectorAll('.facts dd');
+    facts[3].textContent=`${dateText(q.date)}: ${p.busy_dates.includes(q.date)?'занят по календарю датасета':'не занят по календарю датасета'}`;
+    if(!currentResult.matches.some(item=>item.provider.id===p.id))facts[4].textContent='Не входит в текущую тройку рекомендаций. Проверьте соответствие запросу в сравнении избранных.';
+    document.dispatchEvent(new CustomEvent('firebird:profile',{detail:{provider:p}}));
     dialog.showModal();
+    if(button.hasAttribute('data-focus-reviews'))$('profile-reviews')?.focus();
   });
   $('close-dialog').addEventListener('click',()=>dialog.close());
   dialog.addEventListener('click',event=>{if(event.target===dialog){const r=dialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)dialog.close();}});
@@ -344,6 +373,56 @@ body:has(dialog[open]){overflow:hidden}
   $('query-summary').insertAdjacentHTML('afterend', '<div class="selection-tools"><p><span aria-hidden="true">♡</span> Сохраните до трёх вариантов и сравните детали</p><button type="button" class="shortlist-open" id="open-shortlist">Избранное <span id="shortlist-count">0</span></button></div>');
   document.body.insertAdjacentHTML('beforeend', '<div id="ux-toast" class="ux-toast" role="status" aria-live="polite" hidden></div><nav class="mobile-dock" aria-label="Быстрая навигация"><a href="#workspace"><span aria-hidden="true">☷</span> Параметры</a><a href="#selection"><span aria-hidden="true">↗</span> Результаты</a><button type="button" id="mobile-shortlist"><span aria-hidden="true">♡</span> Избранное <span id="mobile-count">0</span></button></nav><dialog id="shortlist-dialog" aria-labelledby="shortlist-title"><div class="dialog-header"><div><p class="eyebrow">ВАШ КОРОТКИЙ СПИСОК</p><h2 id="shortlist-title">Сравнить избранное</h2></div><button type="button" class="icon-button" id="close-shortlist" aria-label="Закрыть избранное">×</button></div><p class="comparison-note">Сохранённые профили могут быть из разных запросов. Сравнение учитывает последний выполненный подбор. Цены «от» — за мероприятие, не итоговая смета.</p><div id="shortlist-content"></div></dialog>');
   const shortlistDialog = $('shortlist-dialog');
+  const selection = $('selection');
+  const searchPanel = document.createElement('div');
+  searchPanel.id = 'search-panel';
+  searchPanel.setAttribute('role', 'tabpanel');
+  searchPanel.setAttribute('aria-labelledby', 'search-tab');
+  while (selection.firstChild) searchPanel.append(selection.firstChild);
+  selection.append(searchPanel);
+  selection.insertAdjacentHTML('afterbegin', '<div class="catalog-tabs" role="tablist" aria-label="Каталог подрядчиков"><button type="button" role="tab" id="search-tab" aria-controls="search-panel" aria-selected="true">Подборка</button><button type="button" role="tab" id="favorites-tab" aria-controls="favorites-panel" aria-selected="false" tabindex="-1">Избранные подрядчики <span id="favorites-count">0</span></button></div>');
+  selection.insertAdjacentHTML('beforeend', '<section id="favorites-panel" role="tabpanel" aria-labelledby="favorites-tab" hidden><div class="favorites-heading"><div><p class="eyebrow">ВАША КОМАНДА</p><h2>Избранные подрядчики</h2></div><button type="button" class="shortlist-open" id="compare-favorites">Сравнить</button></div><p class="comparison-note">До трёх сохранённых профилей. При изменении запроса проверьте их условия в сравнении.</p><div id="favorites-list"></div></section>');
+  document.querySelector('.topnav').insertAdjacentHTML('beforeend', '<a href="#favorites-panel" id="favorites-nav">Избранные подрядчики</a>');
+  function activateTab(favorites, focus = false) {
+    $('search-panel').hidden = favorites;
+    $('favorites-panel').hidden = !favorites;
+    selection.setAttribute('aria-labelledby', favorites ? 'favorites-tab' : 'results-title');
+    for (const [id, active] of [['search-tab', !favorites], ['favorites-tab', favorites]]) {
+      $(id).setAttribute('aria-selected', String(active));
+      $(id).tabIndex = active ? 0 : -1;
+      if (active && focus) $(id).focus();
+    }
+  }
+  function showFavorites() { activateTab(true, true); selection.scrollIntoView({block:'start'}); }
+  $('search-tab').addEventListener('click', () => activateTab(false));
+  $('favorites-tab').addEventListener('click', () => activateTab(true));
+  $('favorites-nav').addEventListener('click', event => { event.preventDefault(); showFavorites(); });
+  selection.querySelector('[role="tablist"]').addEventListener('keydown', event => {
+    if (!['ArrowLeft','ArrowRight','Home','End'].includes(event.key)) return;
+    event.preventDefault();
+    activateTab(event.key === 'End' || (event.key !== 'Home' && $('favorites-panel').hidden), true);
+  });
+  document.querySelectorAll('a[href="#selection"],a[href="#workspace"],a[href="#method"]').forEach(link => link.addEventListener('click', () => activateTab(false)));
+  function renderFavorites() {
+    $('favorites-count').textContent = saved.length;
+    $('compare-favorites').hidden = !saved.length;
+    $('favorites-list').innerHTML = saved.length ? saved.map(id => {
+      const p = data.catalog.find(item => item.id === id);
+      return `<article class="contractor favorite-card" aria-labelledby="favorite-${esc(p.id)}"><div class="card-top"><div class="avatar" data-avatar="${esc(p.id)}" aria-hidden="true">${esc(p.anon_name[0])}</div><div class="card-identity"><h3 id="favorite-${esc(p.id)}">${esc(p.anon_name)}</h3><p class="card-subtitle">${esc(p.categories.join(', '))} · ${esc(p.city)}</p></div><div class="price"><small>Начальная стоимость</small><strong>от ${money(p.price_from_kzt)}</strong></div></div><p class="favorite-context">Сохранённый профиль. Актуальные условия — в сравнении.</p><div class="card-bottom"><button type="button" class="save-button" data-save="${esc(p.id)}"></button><button type="button" class="details-button" data-provider="${esc(p.id)}">Смотреть профиль <span aria-hidden="true">↗</span></button></div></article>`;
+    }).join('') : '<div class="shortlist-empty"><span aria-hidden="true">♡</span><h3>Соберите свою команду</h3><p>Сохраните понравившихся подрядчиков из подборки. Они останутся здесь после перезагрузки страницы.</p><button type="button" class="details-button" id="find-favorites">Найти подрядчиков ↗</button></div>';
+    updateButtons();
+    document.dispatchEvent(new CustomEvent('firebird:favorites'));
+  }
+  $('favorites-list').addEventListener('click', event => {
+    const save = event.target.closest('[data-save]');
+    if (save) {
+      const index = saved.indexOf(save.dataset.save);
+      toggleSaved(save.dataset.save);
+      const remaining = $('favorites-list').querySelectorAll('[data-save]');
+      (remaining[Math.min(index, remaining.length - 1)] || $('find-favorites')).focus();
+    }
+    if (event.target.closest('#find-favorites')) activateTab(false, true);
+  });
 
   function notify(message) {
     clearTimeout(toastTimer);
@@ -423,7 +502,7 @@ body:has(dialog[open]){overflow:hidden}
       if (saved.length >= 3) { notify('В избранном уже три профиля. Уберите один в сравнении, чтобы добавить новый.'); return; }
       saved.push(id);
     }
-    persist(); updateButtons();
+    persist(); updateButtons(); renderFavorites();
     notify(`В избранном: ${saved.length} из 3.${storageAvailable ? '' : ' Сохранено только на этой странице.'}`);
   }
   $('results').addEventListener('click', event => {
@@ -433,7 +512,8 @@ body:has(dialog[open]){overflow:hidden}
   });
   function openShortlist() { renderComparison(); shortlistDialog.showModal(); }
   $('open-shortlist').addEventListener('click', openShortlist);
-  $('mobile-shortlist').addEventListener('click', openShortlist);
+  $('mobile-shortlist').addEventListener('click', showFavorites);
+  $('compare-favorites').addEventListener('click', openShortlist);
   $('close-shortlist').addEventListener('click', () => shortlistDialog.close());
   shortlistDialog.addEventListener('click', event => {
     const remove = event.target.closest('[data-remove]');
@@ -443,7 +523,7 @@ body:has(dialog[open]){overflow:hidden}
       const buttons = shortlistDialog.querySelectorAll('[data-remove]');
       (buttons[Math.min(previousIndex, buttons.length - 1)] || $('back-to-selection')).focus();
     }
-    if (event.target.closest('#back-to-selection')) { shortlistDialog.close(); $('selection').focus(); }
+    if (event.target.closest('#back-to-selection')) { shortlistDialog.close(); activateTab(false, true); }
     if (event.target === shortlistDialog) {
       const r = shortlistDialog.getBoundingClientRect();
       if (event.clientX < r.left || event.clientX > r.right || event.clientY < r.top || event.clientY > r.bottom) shortlistDialog.close();
@@ -451,6 +531,7 @@ body:has(dialog[open]){overflow:hidden}
   });
   document.addEventListener('firebird:results', event => {
     lastQuery = event.detail.query;
+    activateTab(false);
     persist(); decorateCards();
   });
   form.addEventListener('submit', () => {
@@ -482,7 +563,146 @@ body:has(dialog[open]){overflow:hidden}
     }
   } catch (_) { /* Storage can be blocked; the app remains fully usable. */ }
   decorateCards();
+  renderFavorites();
   restoring = false;
+})();
+
+</script>
+<script>
+/* Illustrative identities and clearly labelled demo reviews; not dataset evidence. */
+(function(root) {
+  'use strict';
+  const escapeHTML = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const hash = value => Array.from(String(value)).reduce((n,c) => (n * 31 + c.codePointAt(0)) >>> 0, 7);
+  function avatar(seed) {
+    const n = hash(seed), bg = ['#e2eadc','#f8dfcc','#dce6ed','#e9dff0','#f2e7c7'][n%5];
+    const skin = ['#edb995','#c98d68','#f4d0ae','#ae7554'][(n>>>3)%4];
+    const shirt = ['#3d6a58','#c86743','#536d91','#836787'][(n>>>5)%4];
+    const hair = ['#342e2b','#644330','#262d32','#916544'][(n>>>7)%4];
+    const long = n%2 === 0;
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" aria-hidden="true" focusable="false"><rect width="80" height="80" rx="20" fill="${bg}"/><circle cx="65" cy="14" r="18" fill="#fff" opacity=".35"/>${long?`<path d="M19 36C17 5 64 4 62 36L66 61H15Z" fill="${hair}"/>`:''}<path d="M9 80c0-19 13-29 31-29s31 10 31 29" fill="${shirt}"/><path d="M33 45h14v13c-2 8-12 8-14 0" fill="${skin}"/><ellipse cx="40" cy="33" rx="18" ry="22" fill="${skin}"/><path d="M21 33C13 7 59 3 59 29c-9-1-15-7-18-12-5 10-12 12-20 16" fill="${hair}"/><path d="M30 35h2m16 0h2" stroke="#372a26" stroke-width="2.8" stroke-linecap="round"/><path d="M36 44q4 4 8 0" fill="none" stroke="#8d4d42" stroke-width="2" stroke-linecap="round"/>${n%3===0?'<g fill="none" stroke="#453e39" stroke-width="1.5"><rect x="25" y="30" width="13" height="10" rx="4"/><rect x="42" y="30" width="13" height="10" rx="4"/><path d="M38 33h4"/></g>':''}<path d="m29 59 11 9 11-9" fill="none" stroke="#fff" opacity=".5" stroke-width="2"/></svg>`;
+  }
+  const authors = [['Алия','Серикова'],['Данияр','Омаров'],['Мария','Ким'],['Арман','Садыков'],['Анна','Морозова'],['Амина','Нурланова']];
+  const texts = [
+    'Понравилось, что детали обсудили заранее. Было легко согласовать пожелания и план подготовки.',
+    'Общение было спокойным и понятным. На вопросы отвечали подробно, договорённости не терялись.',
+    'Хорошее впечатление от подготовки: всё по делу, с вниманием к нашим пожеланиям.',
+    'В целом остались довольны. Хотелось бы чуть быстрее получать ответы на уточнения.',
+    'Помогли разобраться с деталями и подобрать подходящий вариант. Особенно понравилось внимание к мелочам.',
+    'Удобно обсуждать организационные вопросы. Несколько деталей пришлось уточнить повторно, но всё решили.'
+  ];
+  function demoReviews(id) {
+    const seed = hash(id);
+    return [0,1].map(i => {
+      const index = (seed+i*3)%authors.length;
+      return {id:`demo-${id}-${i}`,firstName:authors[index][0],lastName:authors[index][1],rating:i===0?5:4,text:texts[(seed+i)%texts.length],date:`2026-09-${String(10+(seed+i*5)%12).padStart(2,'0')}`,demo:true};
+    });
+  }
+  function validateReview(review) {
+    if (!review || typeof review !== 'object') throw new Error('Заполните отзыв.');
+    const firstName = String(review.firstName ?? '').trim(), lastName = String(review.lastName ?? '').trim();
+    const namePattern = /^[\p{L}\p{M}][\p{L}\p{M}\s'’-]{0,39}$/u;
+    if (!namePattern.test(firstName) || !namePattern.test(lastName)) throw new Error('Укажите имя и фамилию: до 40 символов, без цифр и специальных знаков.');
+    if (!Number.isInteger(review.rating) || review.rating < 1 || review.rating > 5) throw new Error('Выберите оценку от 1 до 5 звёзд.');
+    const text = String(review.text ?? '').trim();
+    if (text.length < 10 || text.length > 1200) throw new Error('Напишите отзыв длиной от 10 до 1200 символов.');
+    const date = review.date;
+    if (typeof date !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(date)) throw new Error('Некорректная дата отзыва.');
+    const parsed = new Date(date+'T12:00:00Z');
+    if (!Number.isFinite(parsed.getTime()) || parsed.toISOString().slice(0,10) !== date) throw new Error('Некорректная дата отзыва.');
+    return {firstName,lastName,rating:review.rating,text,date,demo:false};
+  }
+  const api = {avatar,demoReviews,validateReview,escapeHTML};
+  if (typeof module !== 'undefined' && module.exports) module.exports = api;
+  root.FirebirdCommunity = api;
+})(globalThis);
+
+</script>
+<script>
+(function() {
+  'use strict';
+  const $ = id => document.getElementById(id);
+  const data = window.FirebirdData, ui = window.FirebirdCommunity, esc = ui.escapeHTML;
+  const storageKey = 'firebird:reviews:v1';
+  let own = Object.create(null);
+  let activeProvider;
+  let canPersist = true;
+  const formatDate = value => new Intl.DateTimeFormat('ru-RU',{day:'numeric',month:'long',year:'numeric'}).format(new Date(value+'T12:00:00'));
+  const dateToday = () => {const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;};
+  try {
+    const stored = JSON.parse(localStorage.getItem(storageKey) || '{}');
+    for (const p of data.catalog) {
+      if (!Array.isArray(stored?.[p.id])) continue;
+      own[p.id] = stored[p.id].slice(0,20).flatMap(r => {try{return [ui.validateReview(r)];}catch(_){return [];}});
+    }
+  } catch (_) { /* A blocked or corrupt local store must not break the catalogue. */ }
+  function stars(value) { return `<span class="review-stars" role="img" aria-label="${value} из 5 звёзд"><span aria-hidden="true">${'★'.repeat(value)}${'☆'.repeat(5-value)}</span></span>`; }
+  function decorateCards() {
+    document.querySelectorAll('.contractor').forEach(card => {
+      const providerButton = card.querySelector('[data-provider]');
+      if (!providerButton) return;
+      const id = providerButton.dataset.provider;
+      const avatar = card.querySelector('.avatar');
+      if (avatar) { avatar.innerHTML = ui.avatar(id); avatar.classList.add('portrait-avatar'); avatar.title = 'Иллюстративная аватарка'; }
+      if (!card.querySelector('.rating-preview')) {
+        card.querySelector('.card-top').insertAdjacentHTML('afterend', `<button type="button" class="rating-preview" data-provider="${esc(id)}" data-focus-reviews><span class="rating-mini" aria-hidden="true">★</span> <strong>4,5 / 5</strong><span>2 демо-отзыва</span><span aria-hidden="true">↗</span></button>`);
+      }
+    });
+  }
+  function reviewMarkup(r, index, removable) {
+    const fullName = `${r.firstName} ${r.lastName}`;
+    return `<article class="review-card"><header><div class="review-avatar" aria-hidden="true">${ui.avatar(fullName)}</div><div class="review-author"><h4>${esc(fullName)}</h4><time datetime="${r.date}">${esc(formatDate(r.date))}</time></div>${stars(r.rating)}</header><p>${esc(r.text)}</p><div class="review-meta"><span class="review-label">${r.demo?'Демонстрационный отзыв':'Ваш отзыв · только в этом браузере'}</span>${removable?`<button type="button" class="remove-review" data-remove-review="${index}" aria-label="Удалить свой отзыв от ${esc(formatDate(r.date))}">Удалить</button>`:''}</div></article>`;
+  }
+  function renderReviewList() {
+    const entries = own[activeProvider.id] || [];
+    $('own-reviews').innerHTML = entries.length ? `<h4 class="own-reviews-title">Ваши отзывы в этом браузере (${entries.length})</h4>${entries.map((r,i)=>reviewMarkup(r,i,true)).join('')}` : '';
+    $('demo-reviews').innerHTML = ui.demoReviews(activeProvider.id).map((r,i)=>reviewMarkup(r,i,false)).join('');
+  }
+  function persistReviews() {
+    try { localStorage.setItem(storageKey, JSON.stringify(own)); canPersist=true; }
+    catch (_) { canPersist=false; }
+  }
+  document.addEventListener('firebird:profile', event => {
+    activeProvider = event.detail.provider;
+    $('dialog-title').insertAdjacentHTML('beforebegin', `<div class="profile-portrait" aria-hidden="true">${ui.avatar(activeProvider.id)}</div>`);
+    $('dialog-content').insertAdjacentHTML('beforeend', `<section class="profile-reviews" id="profile-reviews" tabindex="-1" aria-labelledby="reviews-title"><div class="reviews-heading"><div><p class="eyebrow">ВПЕЧАТЛЕНИЯ О СОТРУДНИЧЕСТВЕ</p><h3 id="reviews-title">Отзывы</h3></div><div class="rating-summary"><span aria-hidden="true">★</span><strong>4,5</strong><span>/ 5<small>2 демо-отзыва</small></span></div></div><p class="reviews-disclaimer">Примеры для демонстрации интерфейса: имена, аватарки и отзывы вымышлены. Это не реальные рекомендации и не основание для ранжирования.</p><div id="own-reviews"></div><div id="demo-reviews"></div><details class="write-review"><summary>Оставить свой отзыв <span aria-hidden="true">＋</span></summary><p class="review-privacy">Отзыв виден только вам в этом браузере и не публикуется для других посетителей. Аватарка создаётся автоматически.</p><form id="review-form"><div class="review-name-fields"><div><label for="review-first-name">Имя</label><input id="review-first-name" name="firstName" autocomplete="given-name" maxlength="40" required></div><div><label for="review-last-name">Фамилия</label><input id="review-last-name" name="lastName" autocomplete="family-name" maxlength="40" required></div></div><fieldset class="rating-input"><legend>Ваша оценка</legend><div>${[1,2,3,4,5].map(n=>`<label class="rating-option"><input type="radio" name="rating" value="${n}" required aria-label="${n} из 5 звёзд"><span aria-hidden="true">★</span></label>`).join('')}</div><output id="rating-description">Выберите от 1 до 5 звёзд</output></fieldset><label for="review-text">Текст отзыва</label><textarea id="review-text" name="text" rows="4" minlength="10" maxlength="1200" required placeholder="Что понравилось и что можно улучшить?" aria-describedby="review-counter"></textarea><small id="review-counter">0 / 1200 · минимум 10 символов</small><p id="review-error" class="form-error" role="alert" hidden></p><button type="submit" class="primary-button">Сохранить отзыв в этом браузере <span aria-hidden="true">↗</span></button></form></details><p id="review-status" class="review-status" role="status" aria-live="polite"></p></section>`);
+    renderReviewList();
+    $('review-form').addEventListener('input', event => {
+      $('review-error').hidden=true;
+      $('review-counter').textContent=`${$('review-text').value.length} / 1200 · минимум 10 символов`;
+      if (event.target.name === 'rating') {
+        const rating=Number(event.target.value);
+        $('rating-description').textContent=`${rating} из 5 звёзд`;
+        document.querySelectorAll('.rating-option').forEach((label,i)=>label.classList.toggle('selected',i<rating));
+      }
+    });
+    $('review-form').addEventListener('submit', event => {
+      event.preventDefault();
+      try {
+        const review=ui.validateReview({firstName:$('review-first-name').value,lastName:$('review-last-name').value,rating:Number(new FormData(event.target).get('rating')),text:$('review-text').value,date:dateToday()});
+        const reviews=own[activeProvider.id] || [];
+        if (reviews.length >= 20) throw new Error('Сохранено 20 отзывов для этого профиля. Удалите один, чтобы добавить новый.');
+        own[activeProvider.id]=[review,...reviews];
+        persistReviews();renderReviewList();
+        event.target.reset();
+        $('review-counter').textContent='0 / 1200 · минимум 10 символов';
+        $('rating-description').textContent='Выберите от 1 до 5 звёзд';
+        document.querySelectorAll('.rating-option').forEach(label=>label.classList.remove('selected'));
+        $('review-status').textContent=canPersist?'Отзыв сохранён только в этом браузере.':'Хранилище недоступно. Отзыв останется только до закрытия этой страницы.';
+      } catch(error) { $('review-error').textContent=error.message;$('review-error').hidden=false; }
+    });
+    $('own-reviews').addEventListener('click', event => {
+      const button=event.target.closest('[data-remove-review]');
+      if (!button) return;
+      own[activeProvider.id].splice(Number(button.dataset.removeReview),1);
+      persistReviews();renderReviewList();
+      $('review-status').textContent=canPersist?'Локальный отзыв удалён.':'Отзыв удалён на этой странице. Не удалось обновить хранилище браузера.';
+      $('profile-reviews').focus();
+    });
+  });
+  document.addEventListener('firebird:results', decorateCards);
+  document.addEventListener('firebird:favorites', decorateCards);
+  decorateCards();
 })();
 
 </script>

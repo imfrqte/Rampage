@@ -21,6 +21,56 @@
   $('query-summary').insertAdjacentHTML('afterend', '<div class="selection-tools"><p><span aria-hidden="true">♡</span> Сохраните до трёх вариантов и сравните детали</p><button type="button" class="shortlist-open" id="open-shortlist">Избранное <span id="shortlist-count">0</span></button></div>');
   document.body.insertAdjacentHTML('beforeend', '<div id="ux-toast" class="ux-toast" role="status" aria-live="polite" hidden></div><nav class="mobile-dock" aria-label="Быстрая навигация"><a href="#workspace"><span aria-hidden="true">☷</span> Параметры</a><a href="#selection"><span aria-hidden="true">↗</span> Результаты</a><button type="button" id="mobile-shortlist"><span aria-hidden="true">♡</span> Избранное <span id="mobile-count">0</span></button></nav><dialog id="shortlist-dialog" aria-labelledby="shortlist-title"><div class="dialog-header"><div><p class="eyebrow">ВАШ КОРОТКИЙ СПИСОК</p><h2 id="shortlist-title">Сравнить избранное</h2></div><button type="button" class="icon-button" id="close-shortlist" aria-label="Закрыть избранное">×</button></div><p class="comparison-note">Сохранённые профили могут быть из разных запросов. Сравнение учитывает последний выполненный подбор. Цены «от» — за мероприятие, не итоговая смета.</p><div id="shortlist-content"></div></dialog>');
   const shortlistDialog = $('shortlist-dialog');
+  const selection = $('selection');
+  const searchPanel = document.createElement('div');
+  searchPanel.id = 'search-panel';
+  searchPanel.setAttribute('role', 'tabpanel');
+  searchPanel.setAttribute('aria-labelledby', 'search-tab');
+  while (selection.firstChild) searchPanel.append(selection.firstChild);
+  selection.append(searchPanel);
+  selection.insertAdjacentHTML('afterbegin', '<div class="catalog-tabs" role="tablist" aria-label="Каталог подрядчиков"><button type="button" role="tab" id="search-tab" aria-controls="search-panel" aria-selected="true">Подборка</button><button type="button" role="tab" id="favorites-tab" aria-controls="favorites-panel" aria-selected="false" tabindex="-1">Избранные подрядчики <span id="favorites-count">0</span></button></div>');
+  selection.insertAdjacentHTML('beforeend', '<section id="favorites-panel" role="tabpanel" aria-labelledby="favorites-tab" hidden><div class="favorites-heading"><div><p class="eyebrow">ВАША КОМАНДА</p><h2>Избранные подрядчики</h2></div><button type="button" class="shortlist-open" id="compare-favorites">Сравнить</button></div><p class="comparison-note">До трёх сохранённых профилей. При изменении запроса проверьте их условия в сравнении.</p><div id="favorites-list"></div></section>');
+  document.querySelector('.topnav').insertAdjacentHTML('beforeend', '<a href="#favorites-panel" id="favorites-nav">Избранные подрядчики</a>');
+  function activateTab(favorites, focus = false) {
+    $('search-panel').hidden = favorites;
+    $('favorites-panel').hidden = !favorites;
+    selection.setAttribute('aria-labelledby', favorites ? 'favorites-tab' : 'results-title');
+    for (const [id, active] of [['search-tab', !favorites], ['favorites-tab', favorites]]) {
+      $(id).setAttribute('aria-selected', String(active));
+      $(id).tabIndex = active ? 0 : -1;
+      if (active && focus) $(id).focus();
+    }
+  }
+  function showFavorites() { activateTab(true, true); selection.scrollIntoView({block:'start'}); }
+  $('search-tab').addEventListener('click', () => activateTab(false));
+  $('favorites-tab').addEventListener('click', () => activateTab(true));
+  $('favorites-nav').addEventListener('click', event => { event.preventDefault(); showFavorites(); });
+  selection.querySelector('[role="tablist"]').addEventListener('keydown', event => {
+    if (!['ArrowLeft','ArrowRight','Home','End'].includes(event.key)) return;
+    event.preventDefault();
+    activateTab(event.key === 'End' || (event.key !== 'Home' && $('favorites-panel').hidden), true);
+  });
+  document.querySelectorAll('a[href="#selection"],a[href="#workspace"],a[href="#method"]').forEach(link => link.addEventListener('click', () => activateTab(false)));
+  function renderFavorites() {
+    $('favorites-count').textContent = saved.length;
+    $('compare-favorites').hidden = !saved.length;
+    $('favorites-list').innerHTML = saved.length ? saved.map(id => {
+      const p = data.catalog.find(item => item.id === id);
+      return `<article class="contractor favorite-card" aria-labelledby="favorite-${esc(p.id)}"><div class="card-top"><div class="avatar" data-avatar="${esc(p.id)}" aria-hidden="true">${esc(p.anon_name[0])}</div><div class="card-identity"><h3 id="favorite-${esc(p.id)}">${esc(p.anon_name)}</h3><p class="card-subtitle">${esc(p.categories.join(', '))} · ${esc(p.city)}</p></div><div class="price"><small>Начальная стоимость</small><strong>от ${money(p.price_from_kzt)}</strong></div></div><p class="favorite-context">Сохранённый профиль. Актуальные условия — в сравнении.</p><div class="card-bottom"><button type="button" class="save-button" data-save="${esc(p.id)}"></button><button type="button" class="details-button" data-provider="${esc(p.id)}">Смотреть профиль <span aria-hidden="true">↗</span></button></div></article>`;
+    }).join('') : '<div class="shortlist-empty"><span aria-hidden="true">♡</span><h3>Соберите свою команду</h3><p>Сохраните понравившихся подрядчиков из подборки. Они останутся здесь после перезагрузки страницы.</p><button type="button" class="details-button" id="find-favorites">Найти подрядчиков ↗</button></div>';
+    updateButtons();
+    document.dispatchEvent(new CustomEvent('firebird:favorites'));
+  }
+  $('favorites-list').addEventListener('click', event => {
+    const save = event.target.closest('[data-save]');
+    if (save) {
+      const index = saved.indexOf(save.dataset.save);
+      toggleSaved(save.dataset.save);
+      const remaining = $('favorites-list').querySelectorAll('[data-save]');
+      (remaining[Math.min(index, remaining.length - 1)] || $('find-favorites')).focus();
+    }
+    if (event.target.closest('#find-favorites')) activateTab(false, true);
+  });
 
   function notify(message) {
     clearTimeout(toastTimer);
@@ -100,7 +150,7 @@
       if (saved.length >= 3) { notify('В избранном уже три профиля. Уберите один в сравнении, чтобы добавить новый.'); return; }
       saved.push(id);
     }
-    persist(); updateButtons();
+    persist(); updateButtons(); renderFavorites();
     notify(`В избранном: ${saved.length} из 3.${storageAvailable ? '' : ' Сохранено только на этой странице.'}`);
   }
   $('results').addEventListener('click', event => {
@@ -110,7 +160,8 @@
   });
   function openShortlist() { renderComparison(); shortlistDialog.showModal(); }
   $('open-shortlist').addEventListener('click', openShortlist);
-  $('mobile-shortlist').addEventListener('click', openShortlist);
+  $('mobile-shortlist').addEventListener('click', showFavorites);
+  $('compare-favorites').addEventListener('click', openShortlist);
   $('close-shortlist').addEventListener('click', () => shortlistDialog.close());
   shortlistDialog.addEventListener('click', event => {
     const remove = event.target.closest('[data-remove]');
@@ -120,7 +171,7 @@
       const buttons = shortlistDialog.querySelectorAll('[data-remove]');
       (buttons[Math.min(previousIndex, buttons.length - 1)] || $('back-to-selection')).focus();
     }
-    if (event.target.closest('#back-to-selection')) { shortlistDialog.close(); $('selection').focus(); }
+    if (event.target.closest('#back-to-selection')) { shortlistDialog.close(); activateTab(false, true); }
     if (event.target === shortlistDialog) {
       const r = shortlistDialog.getBoundingClientRect();
       if (event.clientX < r.left || event.clientX > r.right || event.clientY < r.top || event.clientY > r.bottom) shortlistDialog.close();
@@ -128,6 +179,7 @@
   });
   document.addEventListener('firebird:results', event => {
     lastQuery = event.detail.query;
+    activateTab(false);
     persist(); decorateCards();
   });
   form.addEventListener('submit', () => {
@@ -159,5 +211,6 @@
     }
   } catch (_) { /* Storage can be blocked; the app remains fully usable. */ }
   decorateCards();
+  renderFavorites();
   restoring = false;
 })();
