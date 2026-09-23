@@ -5,136 +5,742 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>RAMPAGE</title>
+    <title>RAMPAGE — Новый уровень</title>
+
+    <meta
+        name="description"
+        content="RAMPAGE — современный цифровой проект. Создаём. Развиваем. Двигаемся вперёд."
+    >
 
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+        :root {
+            --bg: #070707;
+            --bg-secondary: #101010;
+            --card: rgba(255, 255, 255, 0.045);
+            --border: rgba(255, 255, 255, 0.09);
+            --text: #ffffff;
+            --muted: #888;
+            --accent: #ff3b30;
+            --accent-dark: #a9140d;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        body {
-            min-height: 100vh;
-            font-family: Arial, Helvetica, sans-serif;
-            background:
-                radial-gradient(circle at top, #2a0f0f 0%, #111 45%, #080808 100%);
-            color: white;
-
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        html {
+            scroll-behavior: smooth;
         }
 
-        .container {
-            width: 90%;
-            max-width: 850px;
-            text-align: center;
+        body {
+            font-family: "Inter", Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+        }
 
-            padding: 70px 40px;
+        /* BACKGROUND */
 
-            background: rgba(25, 25, 25, 0.85);
-            border: 1px solid #333;
-            border-radius: 24px;
+        body::before {
+            content: "";
+            position: fixed;
+            width: 700px;
+            height: 700px;
+            top: -350px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent);
+            opacity: 0.08;
+            filter: blur(150px);
+            pointer-events: none;
+            z-index: -1;
+        }
 
-            box-shadow:
-                0 20px 80px rgba(0, 0, 0, 0.6);
+        /* NAVBAR */
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+
+            background: rgba(7, 7, 7, 0.72);
+            backdrop-filter: blur(18px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        nav {
+            width: min(1150px, 90%);
+            height: 72px;
+            margin: auto;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
 
         .logo {
-            font-size: clamp(50px, 10vw, 100px);
+            color: white;
+            text-decoration: none;
+            font-size: 22px;
             font-weight: 900;
-            letter-spacing: 8px;
+            letter-spacing: 4px;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #aaa;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: white;
+        }
+
+        .nav-button {
+            text-decoration: none;
+            color: white;
+            border: 1px solid var(--border);
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+
+        .nav-button:hover {
+            background: white;
+            color: black;
+        }
+
+        /* HERO */
+
+        .hero {
+            min-height: 100vh;
+            width: min(1150px, 90%);
+            margin: auto;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+            padding-top: 72px;
+        }
+
+        .hero-content {
+            max-width: 900px;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            padding: 8px 14px;
+            border-radius: 999px;
+
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--border);
+
+            color: #aaa;
+            font-size: 13px;
+
+            margin-bottom: 28px;
+        }
+
+        .badge-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #32d74b;
+            box-shadow: 0 0 12px #32d74b;
+        }
+
+        h1 {
+            font-size: clamp(65px, 13vw, 150px);
+            line-height: 0.85;
+            letter-spacing: -7px;
+            font-weight: 900;
 
             background: linear-gradient(
-                90deg,
-                #ffffff,
-                #ff4b4b
+                180deg,
+                #ffffff 20%,
+                #777 100%
             );
 
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
 
-            margin-bottom: 20px;
+            margin-bottom: 32px;
         }
 
-        .subtitle {
-            color: #aaa;
-            font-size: 20px;
-            margin-bottom: 40px;
+        .hero p {
+            max-width: 620px;
+            margin: auto;
+
+            color: #999;
+            font-size: 18px;
+            line-height: 1.7;
         }
 
-        .buttons {
+        .hero-buttons {
+            margin-top: 38px;
+
             display: flex;
             justify-content: center;
-            gap: 15px;
+            gap: 14px;
             flex-wrap: wrap;
         }
 
         .button {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
 
-            padding: 14px 28px;
+            min-width: 150px;
+            padding: 15px 25px;
 
             border-radius: 12px;
 
-            background: #fff;
-            color: #111;
-
             text-decoration: none;
-            font-weight: bold;
-
-            transition: 0.2s ease;
-        }
-
-        .button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.15);
-        }
-
-        .button.secondary {
-            background: transparent;
-            color: white;
-            border: 1px solid #444;
-        }
-
-        .footer {
-            margin-top: 45px;
-            color: #555;
             font-size: 14px;
+            font-weight: 700;
+
+            transition:
+                transform 0.2s,
+                box-shadow 0.2s,
+                background 0.2s;
+        }
+
+        .button-primary {
+            color: white;
+            background: var(--accent);
+
+            box-shadow:
+                0 0 30px rgba(255, 59, 48, 0.18);
+        }
+
+        .button-primary:hover {
+            transform: translateY(-3px);
+            background: #ff5046;
+
+            box-shadow:
+                0 12px 40px rgba(255, 59, 48, 0.3);
+        }
+
+        .button-secondary {
+            color: white;
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,0.03);
+        }
+
+        .button-secondary:hover {
+            transform: translateY(-3px);
+            background: rgba(255,255,255,0.08);
+        }
+
+        /* SECTIONS */
+
+        section {
+            width: min(1150px, 90%);
+            margin: auto;
+            padding: 110px 0;
+        }
+
+        .section-title {
+            font-size: 42px;
+            font-weight: 800;
+            letter-spacing: -2px;
+            margin-bottom: 15px;
+        }
+
+        .section-description {
+            color: var(--muted);
+            line-height: 1.7;
+            max-width: 600px;
+            margin-bottom: 45px;
+        }
+
+        /* STATS */
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .stat {
+            padding: 30px;
+            border: 1px solid var(--border);
+            background: var(--card);
+            border-radius: 18px;
+        }
+
+        .stat-number {
+            font-size: 38px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .stat-text {
+            color: #777;
+            font-size: 14px;
+        }
+
+        /* FEATURES */
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .feature {
+            padding: 32px;
+            min-height: 230px;
+
+            border: 1px solid var(--border);
+            border-radius: 20px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,0.06),
+                    rgba(255,255,255,0.015)
+                );
+
+            transition: 0.25s;
+        }
+
+        .feature:hover {
+            transform: translateY(-6px);
+            border-color: rgba(255,59,48,0.35);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+        }
+
+        .feature-icon {
+            width: 45px;
+            height: 45px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 12px;
+
+            background: rgba(255,59,48,0.1);
+            color: var(--accent);
+
+            font-size: 21px;
+            margin-bottom: 25px;
+        }
+
+        .feature h3 {
+            font-size: 19px;
+            margin-bottom: 12px;
+        }
+
+        .feature p {
+            color: #777;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        /* CTA */
+
+        .cta {
+            position: relative;
+            overflow: hidden;
+
+            padding: 75px 40px;
+
+            border-radius: 28px;
+            border: 1px solid var(--border);
+
+            text-align: center;
+
+            background:
+                radial-gradient(
+                    circle at center,
+                    rgba(255,59,48,0.14),
+                    transparent 65%
+                ),
+                #101010;
+        }
+
+        .cta h2 {
+            font-size: clamp(32px, 6vw, 60px);
+            letter-spacing: -3px;
+            margin-bottom: 18px;
+        }
+
+        .cta p {
+            color: #888;
+            margin-bottom: 30px;
+        }
+
+        /* FOOTER */
+
+        footer {
+            width: min(1150px, 90%);
+            margin: auto;
+
+            padding: 35px 0;
+
+            border-top: 1px solid var(--border);
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            color: #555;
+            font-size: 13px;
+        }
+
+        footer a {
+            color: #777;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: white;
+        }
+
+        /* ANIMATION */
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-content > * {
+            animation: fadeUp 0.8s ease both;
+        }
+
+        .hero-content .badge {
+            animation-delay: 0.05s;
+        }
+
+        .hero-content h1 {
+            animation-delay: 0.15s;
+        }
+
+        .hero-content p {
+            animation-delay: 0.25s;
+        }
+
+        .hero-buttons {
+            animation: fadeUp 0.8s 0.35s ease both;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 800px) {
+
+            .nav-links {
+                display: none;
+            }
+
+            .nav-button {
+                padding: 9px 14px;
+            }
+
+            h1 {
+                letter-spacing: -4px;
+            }
+
+            .stats,
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 34px;
+            }
+
+            section {
+                padding: 80px 0;
+            }
+
+            footer {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 500px) {
+
+            .hero {
+                padding-top: 90px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .button {
+                width: 100%;
+            }
+
+            .cta {
+                padding: 55px 20px;
+            }
         }
     </style>
 </head>
 
 <body>
 
-    <main class="container">
+<header>
+    <nav>
 
-        <h1 class="logo">RAMPAGE</h1>
+        <a href="#" class="logo">
+            RAMP<span>AGE</span>
+        </a>
 
-        <p class="subtitle">
-            Новый проект. Новая история.
+        <ul class="nav-links">
+            <li><a href="#about">О проекте</a></li>
+            <li><a href="#features">Возможности</a></li>
+            <li><a href="#contact">Контакты</a></li>
+        </ul>
+
+        <a
+            href="https://github.com/imfrqte/Rampage"
+            target="_blank"
+            class="nav-button"
+        >
+            GitHub
+        </a>
+
+    </nav>
+</header>
+
+
+<main>
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="badge">
+                <span class="badge-dot"></span>
+                Проект развивается
+            </div>
+
+            <h1>RAMPAGE</h1>
+
+            <p>
+                Мы создаём современные решения,
+                объединяя технологии, идеи и людей
+                в одном проекте.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a href="#about" class="button button-primary">
+                    Узнать больше
+                </a>
+
+                <a
+                    href="https://github.com/imfrqte/Rampage"
+                    target="_blank"
+                    class="button button-secondary"
+                >
+                    Открыть GitHub
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ABOUT -->
+
+    <section id="about">
+
+        <h2 class="section-title">
+            Rampage в цифрах
+        </h2>
+
+        <p class="section-description">
+            Небольшой проект сегодня может стать большим
+            продуктом завтра. Мы строим его постепенно,
+            уделяя внимание каждой детали.
         </p>
 
-        <div class="buttons">
+        <div class="stats">
 
-            <a href="#" class="button">
-                Начать
-            </a>
+            <div class="stat">
+                <div class="stat-number">01</div>
+                <div class="stat-text">
+                    Единая команда
+                </div>
+            </div>
 
-            <a href="https://github.com/imfrqte/Rampage"
-               class="button secondary"
-               target="_blank">
-                GitHub
+            <div class="stat">
+                <div class="stat-number">24/7</div>
+                <div class="stat-text">
+                    Развитие проекта
+                </div>
+            </div>
+
+            <div class="stat">
+                <div class="stat-number">∞</div>
+                <div class="stat-text">
+                    Идей для развития
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FEATURES -->
+
+    <section id="features">
+
+        <h2 class="section-title">
+            Что внутри
+        </h2>
+
+        <p class="section-description">
+            Основные направления проекта, которые можно
+            расширять по мере разработки.
+        </p>
+
+        <div class="features">
+
+            <article class="feature">
+
+                <div class="feature-icon">
+                    ⚡
+                </div>
+
+                <h3>
+                    Скорость
+                </h3>
+
+                <p>
+                    Минимум лишнего. Быстрый интерфейс
+                    и простая структура проекта.
+                </p>
+
+            </article>
+
+
+            <article class="feature">
+
+                <div class="feature-icon">
+                    ◈
+                </div>
+
+                <h3>
+                    Современный дизайн
+                </h3>
+
+                <p>
+                    Тёмная визуальная система, адаптивность
+                    и аккуратные анимации.
+                </p>
+
+            </article>
+
+
+            <article class="feature">
+
+                <div class="feature-icon">
+                    ◆
+                </div>
+
+                <h3>
+                    Масштабирование
+                </h3>
+
+                <p>
+                    Структура позволяет добавлять новые
+                    страницы, функции и сервисы.
+                </p>
+
+            </article>
+
+        </div>
+
+    </section>
+
+
+    <!-- CTA -->
+
+    <section id="contact">
+
+        <div class="cta">
+
+            <h2>
+                Готовы начать?
+            </h2>
+
+            <p>
+                Следи за развитием Rampage на GitHub.
+            </p>
+
+            <a
+                href="https://github.com/imfrqte/Rampage"
+                target="_blank"
+                class="button button-primary"
+            >
+                Перейти в GitHub
             </a>
 
         </div>
 
-        <div class="footer">
-            © 2026 RAMPAGE
-        </div>
+    </section>
 
-    </main>
+</main>
+
+
+<footer>
+
+    <span>
+        © 2026 RAMPAGE
+    </span>
+
+    <a
+        href="https://github.com/imfrqte/Rampage"
+        target="_blank"
+    >
+        GitHub
+    </a>
+
+</footer>
 
 </body>
 </html>
