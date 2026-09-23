@@ -18,7 +18,7 @@
   let lastQuery = defaults;
 
   form.insertAdjacentHTML('afterend', '<div class="draft-row"><span id="draft-status">Параметры сохраняются в этом браузере</span><button type="button" id="reset-brief">Сбросить</button></div>');
-  $('query-summary').insertAdjacentHTML('afterend', '<div class="selection-tools"><p><span aria-hidden="true">♡</span> Сохраните до трёх вариантов и сравните детали</p><button type="button" class="shortlist-open" id="open-shortlist">Избранное <span id="shortlist-count">0</span></button></div>');
+  $('query-summary').insertAdjacentHTML('afterend', '<div class="selection-tools"><p><span aria-hidden="true">♡</span> Сохраните до трёх вариантов и сравните детали</p></div>');
   document.body.insertAdjacentHTML('beforeend', '<div id="ux-toast" class="ux-toast" role="status" aria-live="polite" hidden></div><nav class="mobile-dock" aria-label="Быстрая навигация"><a href="#workspace"><span aria-hidden="true">☷</span> Параметры</a><a href="#selection"><span aria-hidden="true">↗</span> Результаты</a><button type="button" id="mobile-shortlist"><span aria-hidden="true">♡</span> Избранное <span id="mobile-count">0</span></button></nav><dialog id="shortlist-dialog" aria-labelledby="shortlist-title"><div class="dialog-header"><div><p class="eyebrow">ВАШ КОРОТКИЙ СПИСОК</p><h2 id="shortlist-title">Сравнить избранное</h2></div><button type="button" class="icon-button" id="close-shortlist" aria-label="Закрыть избранное">×</button></div><p class="comparison-note">Сохранённые профили могут быть из разных запросов. Сравнение учитывает последний выполненный подбор. Цены «от» — за мероприятие, не итоговая смета.</p><div id="shortlist-content"></div></dialog>');
   const shortlistDialog = $('shortlist-dialog');
   const selection = $('selection');
@@ -89,7 +89,6 @@
     }
   }
   function updateButtons() {
-    $('shortlist-count').textContent = saved.length;
     $('mobile-count').textContent = saved.length;
     document.querySelectorAll('[data-save]').forEach(button => {
       const active = saved.includes(button.dataset.save);
@@ -159,7 +158,6 @@
     if (event.target.closest('.edit-query')) { $('city').focus(); $('workspace').scrollIntoView({block:'start'}); }
   });
   function openShortlist() { renderComparison(); shortlistDialog.showModal(); }
-  $('open-shortlist').addEventListener('click', openShortlist);
   $('mobile-shortlist').addEventListener('click', showFavorites);
   $('compare-favorites').addEventListener('click', openShortlist);
   $('close-shortlist').addEventListener('click', () => shortlistDialog.close());
