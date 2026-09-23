@@ -1,35 +1,276 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#090708">
-  <title>RAMPAGE</title>
-  <style>
-    :root{color-scheme:dark;--red:#ff4545;--ink:#f7f4f1;--muted:#aaa3a3}
-    *{box-sizing:border-box;margin:0;padding:0}body{min-height:100vh;padding:20px;display:grid;place-items:center;overflow:hidden;color:var(--ink);font-family:Arial,Helvetica,sans-serif;background:radial-gradient(ellipse at 50% 12%,#501717 0,transparent 42%),radial-gradient(ellipse at 86% 90%,#2b1015 0,transparent 40%),#090708}
-    .container{position:relative;isolation:isolate;width:min(94vw,970px);padding:27px 40px 30px;text-align:center;overflow:hidden;background:linear-gradient(145deg,#171313ef,#100e0ff5);border:1px solid #ffffff19;border-radius:26px;box-shadow:0 28px 100px #000a,0 0 70px #ff393915}
-    .topline{display:flex;justify-content:space-between;align-items:center;color:#837879;font:9px ui-monospace,monospace;letter-spacing:.16em}.signal{display:inline-flex;align-items:center;gap:8px;color:#d6bebe}.signal i{width:6px;height:6px;border-radius:50%;background:#ff6a58;box-shadow:0 0 12px #ff483f;animation:pulse 1.8s infinite}
-    .stage{position:relative;height:250px;margin:5px auto 0;display:grid;place-items:center;perspective:1000px}.world{position:relative;width:230px;height:230px;transform-style:preserve-3d;transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .18s ease-out}.aura{position:absolute;inset:10%;border-radius:50%;background:radial-gradient(circle,#ff282855 0,#ff242422 42%,transparent 71%);filter:blur(23px);animation:glow 4.5s ease-in-out infinite alternate}
-    .orb{position:absolute;inset:23%;border-radius:50%;background:radial-gradient(ellipse at 31% 25%,#ffe3c1 0%,#ff9b64 3%,#ff4040 10%,#b51728 29%,#521120 53%,#1b111a 76%);box-shadow:inset -18px -14px 28px #080709,inset 7px 6px 20px #ffdbbb8a,0 0 30px #ff493d83,0 0 78px #ff252752,0 0 130px #c91b302b;animation:float 6s ease-in-out infinite}
-    .orb:before{content:"";position:absolute;inset:-2%;border-radius:50%;background:repeating-radial-gradient(ellipse at 38% 36%,transparent 0 8px,#ffd6c32b 9px 10px,transparent 11px 17px);mask-image:radial-gradient(ellipse,transparent 30%,#000 35%,#000 72%,transparent 77%);animation:spin 27s linear infinite}.orb:after{content:"";position:absolute;inset:0;border-radius:50%;background:linear-gradient(125deg,transparent 29%,#fff0da40 40%,transparent 49%),radial-gradient(ellipse at 28% 19%,#fff6e945,transparent 27%);mix-blend-mode:screen}
-    .orbit{position:absolute;left:50%;top:50%;border:1px solid #ffb4a55c;border-radius:50%;transform-style:preserve-3d}.orbit.a{width:120%;height:43%;transform:translate(-50%,-50%) rotate(-24deg) rotateX(67deg);animation:orbitA 15s linear infinite}.orbit.b{width:70%;height:125%;border-color:#ff564d69;transform:translate(-50%,-50%) rotate(50deg) rotateY(68deg);animation:orbitB 22s linear infinite}.orbit.c{width:128%;height:47%;border-color:#ffd1bd46;transform:translate(-50%,-50%) rotate(26deg) rotateX(72deg);animation:orbitC 19s linear infinite}.satellite{position:absolute;left:8%;top:45%;width:8px;height:8px;border-radius:50%;background:#ffe3bc;box-shadow:0 0 9px #ffb07c,0 0 22px #ff423d}.orbit.b .satellite{left:88%;top:24%;width:5px;height:5px;background:#fff0df;box-shadow:0 0 10px white,0 0 22px #ff6f54}
-    .spark{position:absolute;width:3px;height:3px;border-radius:50%;background:#fff2e4;box-shadow:0 0 9px 2px #ff6d59;animation:twinkle 2s ease-in-out infinite alternate}.sp1{left:7%;top:25%}.sp2{right:8%;top:35%;animation-delay:.4s}.sp3{right:17%;bottom:14%;animation-delay:1.1s}.sp4{left:14%;bottom:17%;animation-delay:.8s}.sp5{left:51%;top:2%;animation-delay:1.5s}.shock{position:absolute;left:50%;top:50%;width:45%;aspect-ratio:1;border:1px solid #ffb48b;border-radius:50%;opacity:0;transform:translate(-50%,-50%) scale(.4);box-shadow:0 0 25px #ff5049}.world.burst .shock{animation:shock .95s cubic-bezier(.1,.7,.2,1)}.world.burst .orb{animation:float 6s ease-in-out infinite,flash .8s ease-out}.orb-label{position:absolute;right:0;bottom:15px;color:#a59b9c;text-align:right;font:8px ui-monospace,monospace;letter-spacing:.15em}.orb-label b{display:block;margin-top:6px;color:#ff8f72;font-weight:400}
-    .logo{margin:0 0 13px;font-size:clamp(44px,8vw,82px);line-height:1;font-weight:900;letter-spacing:.16em;text-indent:.16em;background:linear-gradient(100deg,#fff4ea,#ff6860 72%,#ffa16c);-webkit-background-clip:text;background-clip:text;color:transparent}.subtitle{color:#b7adad;font-size:17px;margin-bottom:28px}.buttons{display:flex;justify-content:center;gap:13px;flex-wrap:wrap}.button{display:inline-block;padding:13px 25px;border:1px solid transparent;border-radius:11px;background:linear-gradient(100deg,#ff5b51,#e73346);color:white;text-decoration:none;font-weight:bold;font-size:14px;cursor:pointer;transition:transform .2s,box-shadow .2s,border-color .2s}.button:hover{transform:translateY(-3px);box-shadow:0 10px 30px #ff45453b}.button.secondary{background:#ffffff08;color:#eee4e4;border-color:#ffffff29}.button.secondary:hover{border-color:#ff766b8a}.footer{margin-top:33px;color:#655d60;font:9px ui-monospace,monospace;letter-spacing:.12em}
-    @keyframes float{0%,100%{translate:0 -4px}50%{translate:0 7px}}@keyframes spin{to{rotate:360deg}}@keyframes orbitA{to{rotate:360deg}}@keyframes orbitB{to{rotate:-360deg}}@keyframes orbitC{to{rotate:360deg}}@keyframes pulse{50%{opacity:.3}}@keyframes glow{to{transform:scale(1.18);opacity:.68}}@keyframes twinkle{to{opacity:.2;transform:scale(.5)}}@keyframes shock{0%{opacity:.85;transform:translate(-50%,-50%) scale(.4)}100%{opacity:0;transform:translate(-50%,-50%) scale(2)}}@keyframes flash{50%{filter:brightness(1.8);scale:1.05}}
-    @media(max-width:600px){body{padding:12px}.container{width:100%;padding:22px 18px;border-radius:20px}.topline{font-size:8px}.stage{height:215px;margin-top:12px}.world{transform:scale(.86) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg))}.logo{letter-spacing:.1em;text-indent:.1em}.subtitle{font-size:15px;margin-bottom:24px}.footer{margin-top:27px}.orb-label{right:2px;bottom:9px}}@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition:none!important}}
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>3D Змейка</title>
+<style>
+
+:root{
+--text:#ecf7ff;
+--mint:#71ffb3}
+*{
+box-sizing:border-box}
+body{
+margin:0;
+min-height:100vh;
+display:grid;
+place-items:center;
+background:radial-gradient(circle at 50% 0,#305676,#061018 67%);
+font-family:system-ui,sans-serif;
+color:var(--text)}
+main{
+width:min(94vw,780px);
+padding:18px;
+border:1px solid #6285a055;
+border-radius:24px;
+background:linear-gradient(140deg,#193142dd,#071018ee);
+box-shadow:0 28px 90px #000b;
+text-align:center}
+h1{
+font-size:clamp(1.45rem,4vw,2.2rem);
+letter-spacing:.12em;
+margin:2px 0 8px}
+.sub{
+margin:0 0 14px;
+color:#b7d0df;
+font-size:.9rem}
+.stats{
+display:flex;
+justify-content:center;
+gap:min(11vw,100px);
+margin:0 0 14px}
+.stats b{
+display:block;
+color:var(--mint);
+font-size:1.4rem}
+canvas{
+display:block;
+width:100%;
+aspect-ratio:1.5;
+border-radius:16px;
+background:#89c7e9;
+box-shadow:inset 0 0 0 2px #9cdaf244}
+.below{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin:12px 3px 5px;
+color:#b7d0df;
+font-size:.9rem}
+.controls{
+display:grid;
+grid-template-columns:repeat(3,62px);
+justify-content:center;
+gap:6px;
+margin-top:10px}
+button{
+border:1px solid #a6d9eb33;
+border-radius:12px;
+background:#294a5e;
+color:#fff;
+font-size:1.25rem;
+padding:10px;
+cursor:pointer;
+touch-action:manipulation}
+button:hover,button:active{
+background:#41728b}
+.up{
+grid-column:2}
+.left{
+grid-column:1;
+grid-row:2}
+.down{
+grid-column:2;
+grid-row:2}
+.right{
+grid-column:3;
+grid-row:2}
+#restart{
+font-size:.95rem;
+background:#24774c;
+padding:9px 14px}
+@media(max-width:450px){
+main{
+padding:12px}
+.controls{
+grid-template-columns:repeat(3,57px)}
+}
+</style>
 </head>
 <body>
-<main class="container">
-  <div class="topline"><span>RAMPAGE / 001</span><span class="signal"><i></i> CORE ONLINE</span></div>
-  <div class="stage" id="stage" aria-label="Интерактивная трёхмерная анимация"><div class="world" id="world"><div class="aura"></div><div class="orbit a"><i class="satellite"></i></div><div class="orbit b"><i class="satellite"></i></div><div class="orbit c"></div><div class="orb"></div><div class="shock"></div><i class="spark sp1"></i><i class="spark sp2"></i><i class="spark sp3"></i><i class="spark sp4"></i><i class="spark sp5"></i><div class="orb-label">FIELD STATUS<b>STABLE / 98.4%</b></div></div></div>
-  <h1 class="logo">RAMPAGE</h1><p class="subtitle">Новый проект. Новая история.</p>
-  <div class="buttons"><a href="#" class="button" id="launch">Запустить импульс <span aria-hidden="true">↗</span></a><a href="https://github.com/imfrqte/Rampage" class="button secondary" target="_blank" rel="noopener noreferrer">GitHub</a></div>
-  <div class="footer">© 2026 RAMPAGE · MOVE YOUR CURSOR TO FEEL THE FIELD</div>
+<main>
+<h1>3D ЗМЕЙКА</h1>
+<p class="sub">Большая карта · 40 × 40 клеток</p>
+<div class="stats">
+<span>СЧЁТ<b id="score">0</b>
+</span>
+<span>РЕКОРД<b id="best">0</b>
+</span>
+</div>
+<canvas id="game" width="900" height="600">
+</canvas>
+<div class="below">
+<span id="message">Стрелки или WASD — движение</span>
+<button id="restart">Новая игра</button>
+</div>
+<div class="controls">
+<button class="up" data-d="up">▲</button>
+<button class="left" data-d="left">◀</button>
+<button class="down" data-d="down">▼</button>
+<button class="right" data-d="right">▶</button>
+</div>
 </main>
 <script>
-const world=document.querySelector('#world'),stage=document.querySelector('#stage');let px=0,py=0,frame=0;stage.addEventListener('pointermove',e=>{if(matchMedia('(max-width:600px)').matches)return;const r=stage.getBoundingClientRect();px=((e.clientX-r.left-r.width/2)/r.width)*12;py=-((e.clientY-r.top-r.height/2)/r.height)*10;if(!frame)frame=requestAnimationFrame(()=>{world.style.setProperty('--ry',px+'deg');world.style.setProperty('--rx',py+'deg');frame=0})});stage.addEventListener('pointerleave',()=>{world.style.setProperty('--ry','0deg');world.style.setProperty('--rx','0deg')});document.querySelector('#launch').addEventListener('click',e=>{e.preventDefault();world.classList.remove('burst');void world.offsetWidth;world.classList.add('burst');setTimeout(()=>world.classList.remove('burst'),1050)});
+
+const C=document.querySelector('#game'),X=C.getContext('2d'),N=40,scoreEl=document.querySelector('#score'),bestEl=document.querySelector('#best'),msg=document.querySelector('#message');
+let snake,food,dir,next,score,best=+localStorage.snake3dBest||0,timer;
+bestEl.textContent=best;
+const H=118,CX=450,SCALE=18;
+const decor=[['tree',3,33],['tree',9,28],['rock',15,35],['bush',26,33],['tree',34,29],['rock',5,21],['bush',12,17],['tree',31,19],['rock',36,13],['tree',6,8],['bush',23,7],['rock',17,4],['tree',35,3]];
+
+function p(x,y,z=0){let d=1+(N-y)*.035;
+return{x:CX+(x-N/2)*SCALE/d,y:H+y*11.25/d-z*25/d,s:SCALE/d}}
+
+function poly(a,c){X.fillStyle=c;
+X.beginPath();
+X.moveTo(a[0].x,a[0].y);
+a.slice(1).forEach(q=>X.lineTo(q.x,q.y));
+X.closePath();
+X.fill()}
+
+function shade(h,n){let v=parseInt(h.slice(1),16),r=Math.max(0,Math.min(255,(v>>16)+n)),g=Math.max(0,Math.min(255,((v>>8)&255)+n)),b=Math.max(0,Math.min(255,(v&255)+n));
+return`rgb(${r},${g},${b})`}
+
+function cube(x,y,z,col){let a=p(x,y,z),b=p(x+1,y,z),c=p(x+1,y+1,z),d=p(x,y+1,z),A=p(x,y,z+1),B=p(x+1,y,z+1),D=p(x,y+1,z+1),E=p(x+1,y+1,z+1);
+poly([d,c,E,D],'#143a3f88');
+poly([b,c,E,B],shade(col,-30));
+poly([A,B,E,D],col)}
+
+function plant(kind,x,y){let q=p(x+.5,y+.5),r=q.s;
+if(kind==='rock'){X.fillStyle='#162b3455';
+X.beginPath();
+X.ellipse(q.x,q.y+r*.28,r*.56,r*.17,0,0,7);
+X.fill();
+X.fillStyle='#8b9a9d';
+X.beginPath();
+X.ellipse(q.x,q.y-r*.08,r*.42,r*.31,0,0,7);
+X.fill();
+return}if(kind==='bush'){X.fillStyle='#16472d';
+for(let n=-1;
+n<2;
+n++){X.beginPath();
+X.arc(q.x+n*r*.27,q.y-r*.2,r*.31,0,0,7);
+X.fill()}return}X.fillStyle='#573b24';
+X.fillRect(q.x-r*.09,q.y-r*1.12,r*.18,r*1.15);
+for(let n=0;
+n<3;
+n++){let yy=q.y-r*(.72+n*.23),rr=r*(.6-n*.11);
+X.fillStyle=n===2?'#5bc967':'#287d45';
+X.beginPath();
+X.moveTo(q.x,yy-r*.55);
+X.lineTo(q.x-rr,yy+r*.32);
+X.lineTo(q.x+rr,yy+r*.32);
+X.closePath();
+X.fill()}}
+
+function sphere(x,y,isHead=false){let q=p(x+.5,y+.5,.42),r=q.s*(isHead?.56:.48);
+X.fillStyle='#102a3155';
+X.beginPath();
+X.ellipse(q.x,q.y+r*.75,r*1.1,r*.3,0,0,7);
+X.fill();
+let g=X.createRadialGradient(q.x-r*.32,q.y-r*.48,r*.04,q.x,q.y,r);
+g.addColorStop(0,isHead?'#e4ffd3':'#b4ffc2');
+g.addColorStop(.36,isHead?'#79ed92':'#47ca74');
+g.addColorStop(1,'#167148');
+X.fillStyle=g;
+X.beginPath();
+X.ellipse(q.x,q.y,r,r*.8,0,0,7);
+X.fill();
+return{q,r}}
+
+function dot(x,y){let q=p(x+.5,y+.5,.35);
+X.fillStyle='#11232b55';
+X.beginPath();
+X.ellipse(q.x,q.y+q.s*.32,q.s*.6,q.s*.16,0,0,7);
+X.fill();
+X.fillStyle='#ff475d';
+X.beginPath();
+X.arc(q.x,q.y-q.s*.22,q.s*.32,0,7);
+X.fill();
+X.fillStyle='#fff9';
+X.beginPath();
+X.arc(q.x-q.s*.1,q.y-q.s*.33,q.s*.08,0,7);
+X.fill()}
+function draw(){let sky=X.createLinearGradient(0,0,0,H+45);
+sky.addColorStop(0,'#75bfe9');
+sky.addColorStop(1,'#d3f1ea');
+X.fillStyle=sky;
+X.fillRect(0,0,C.width,C.height);
+X.fillStyle='#eaf9e7';
+X.fillRect(0,H,C.width,C.height);
+for(let y=N-1;
+y>=0;
+y--)for(let x=0;
+x<N;
+x++){let a=p(x,y),b=p(x+1,y),c=p(x+1,y+1),d=p(x,y+1);
+poly([a,b,c,d],(x+y)%2?'#2f8656':'#358f5c')}for(let x=0;
+x<N;
+x++)cube(x,N-1,0,'#49646a');
+for(let y=0;
+y<N;
+y++){cube(-.45,y,0,'#49646a');
+cube(N-.55,y,0,'#49646a')}decor.slice().sort((a,b)=>b[2]-a[2]).forEach(d=>plant(...d));
+dot(food.x,food.y);
+snake.slice(1).reverse().forEach(s=>sphere(s.x,s.y));
+let h=snake[0],head=sphere(h.x,h.y,true),forward=p(h.x+.5+dir.x*.35,h.y+.5+dir.y*.35,.42),dx=forward.x-head.q.x,dy=forward.y-head.q.y,len=Math.hypot(dx,dy)||1,sideX=-dy/len,sideY=dx/len;
+for(let side of[-1,1]){let ex=head.q.x+dx*.24+sideX*head.r*.3*side,ey=head.q.y+dy*.24+sideY*head.r*.22*side;
+X.fillStyle='#092f25';
+X.beginPath();
+X.arc(ex,ey,head.r*.12,0,7);
+X.fill();
+X.fillStyle='#fff';
+X.beginPath();
+X.arc(ex-dx*.045,ey-dy*.045,head.r*.035,0,7);
+X.fill()}}
+function spawn(){let f;
+do{f={x:Math.floor(Math.random()*N),y:Math.floor(Math.random()*N)}}while(snake.some(s=>s.x===f.x&&s.y===f.y));
+return f}
+
+function reset(){clearInterval(timer);
+snake=[{x:20,y:20},{x:19,y:20},{x:18,y:20},{x:17,y:20}];
+dir=next={x:1,y:0};
+food=spawn();
+score=0;
+scoreEl.textContent=0;
+msg.textContent='Стрелки или WASD — движение';
+draw();
+timer=setInterval(step,105)}
+
+function step(){dir=next;
+let h={x:snake[0].x+dir.x,y:snake[0].y+dir.y};
+if(h.x<0||h.y<0||h.x>=N||h.y>=N||snake.some(s=>s.x===h.x&&s.y===h.y)){clearInterval(timer);
+msg.textContent='Столкновение! Нажми «Новая игра».';
+draw();
+return}snake.unshift(h);
+if(h.x===food.x&&h.y===food.y){score++;
+scoreEl.textContent=score;
+if(score>best){best=score;
+localStorage.snake3dBest=best;
+bestEl.textContent=best}food=spawn()}else snake.pop();
+draw()}
+
+function move(k){let m={up:{x:0,y:-1},down:{x:0,y:1},left:{x:-1,y:0},right:{x:1,y:0}}[k];
+if(m&&!(m.x===-dir.x&&m.y===-dir.y))next=m}
+
+addEventListener('keydown',e=>{let k={ArrowUp:'up',w:'up',W:'up',ArrowDown:'down',s:'down',S:'down',ArrowLeft:'left',a:'left',A:'left',ArrowRight:'right',d:'right',D:'right'}[e.key];
+if(k){e.preventDefault();
+move(k)}});
+document.querySelectorAll('[data-d]').forEach(b=>b.onclick=()=>move(b.dataset.d));
+document.querySelector('#restart').onclick=reset;
+reset();
+
+
 </script>
 </body>
 </html>
