@@ -83,6 +83,8 @@
   $('close-dialog').addEventListener('click',()=>dialog.close());
   dialog.addEventListener('click',event=>{if(event.target===dialog){const r=dialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)dialog.close();}});
   document.querySelector('a[href="#method"]').addEventListener('click',()=>{$('method').open=true;});
+  window.FirebirdApp={readQuery,applyQuery(input){const q=matcher.validate(input,data);setForm(q);document.querySelector('.optional-fields').open=Boolean(q.language||q.hours);return run(q);}};
+  document.addEventListener('firebird:profile',()=>{document.querySelectorAll('.original-description').forEach(p=>{p.lang='ru';const note=document.createElement('p');note.className='original-language-note';note.textContent='Оригинал описания — на русском';p.before(note);});});
   setForm(examples.dense);run(examples.dense);
   if(document.modelContext?.registerTool){
     const lifecycle=new AbortController();window.addEventListener('pagehide',()=>lifecycle.abort(),{once:true});

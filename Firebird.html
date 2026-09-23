@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="bento.css?v=e189c31ec9">
   <script defer src="catalog.js?v=aee173b22f"></script>
   <script defer src="matcher.js?v=8f1fb8eca0"></script>
-  <script defer src="app.js?v=9856ba12ef"></script>
+  <script defer src="app.js?v=46eaa01740"></script>
   <script defer src="ux.js?v=afd1215ea0"></script>
   <script defer src="community-data.js?v=aa71f1b09f"></script>
   <script defer src="community.js?v=fe04480d75"></script>
@@ -21,6 +21,11 @@
   <link rel="stylesheet" href="accounts.css?v=f224e15ce8">
   <script defer src="accounts.js?v=ed3dad7e01"></script>
   <link rel="stylesheet" href="theme.css?v=de945d6634">
+  <link rel="stylesheet" href="assistant.css?v=12657288f0">
+  <script defer src="account-translations.js?v=ae852f402b"></script>
+  <script defer src="translations.js?v=2a9046e958"></script>
+  <script defer src="i18n.js?v=738637ed0e"></script>
+  <script defer src="assistant.js?v=a2143a06a3"></script>
 </head>
 <body>
   <a class="skip-link" href="#workspace">Перейти к подбору</a>
@@ -81,7 +86,7 @@
         <div id="results"></div>
         <p id="exclusion-note" class="exclusion-note"></p>
         <details id="excluded-details" class="method"><summary>Почему остальные не подошли</summary><p>У одного профиля может быть несколько причин исключения.</p><ul id="excluded-list"></ul></details>
-        <details class="method" id="method"><summary>Как работает подбор</summary><p>Сначала выбираем город и категорию, затем проверяем занятость, формат, цену «от», язык и длительность. У флористов, декораторов и сувениров лимит присутствия может не применяться — это не повод для исключения.</p><p>Среди прошедших фильтры выше стоят описания с большим числом тематических признаков формата. При равенстве — профили без заполненной при подготовке цены, затем города, затем меньшая цена и ID. Это фиксированные правила, а не обученная модель: повтор запроса сохраняет порядок.</p><p>Объяснение объединяет проверенные поля с дословным фрагментом описания. Внешняя AI-модель не подключена. Датасет: 66 профилей, из них 13 синтетических, созданных организаторами; своих профилей не добавляли.</p></details>
+        <details class="method" id="method"><summary>Как работает подбор</summary><p>Сначала выбираем город и категорию, затем проверяем занятость, формат, цену «от», язык и длительность. У флористов, декораторов и сувениров лимит присутствия может не применяться — это не повод для исключения.</p><p>Среди прошедших фильтры выше стоят описания с большим числом тематических признаков формата. При равенстве — профили без заполненной при подготовке цены, затем города, затем меньшая цена и ID. Это фиксированные правила, а не обученная модель: повтор запроса сохраняет порядок.</p><p>Объяснение объединяет проверенные поля с дословным фрагментом описания. Датасет: 66 профилей, из них 13 синтетических, созданных организаторами. ИИ-помощник подключается отдельно и не меняет правила подбора.</p></details>
       </section>
     </div>
     <footer><strong class="footer-brand">firebird<span> •</span></strong><p>Демонстрационный каталог HackAlem AI. Имена анонимизированы, особенности данных отмечены в карточках. Сервис рекомендует, бронирование не выполняет.</p><span>КАЛЕНДАРЬ 23.09–31.12.2026</span></footer>

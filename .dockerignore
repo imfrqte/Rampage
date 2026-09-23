@@ -1,5 +1,9 @@
 .git
 .env
+**/.env
+node_modules
+work
+*.log
 .env.*
 .venv
 __pycache__
