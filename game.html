@@ -24,18 +24,19 @@ const clouds=[{x:120,y:92,s:1.05},{x:430,y:138,s:.75},{x:745,y:77,s:1.2},{x:1035
 function reset(){score=0;ammo=3;flying=false;dragging=false;shotWait=0;ended=false;
 bird={x:anchor.x,y:anchor.y,vx:0,vy:0,r:24,active:true,launched:false};
 blocks=[
-{x:830,y:516,w:250,h:24,color:"wood",loose:false,hp:2},
-{x:850,y:452,w:22,h:64,color:"wood",loose:false,hp:1},{x:1038,y:452,w:22,h:64,color:"wood",loose:false,hp:1},
-{x:850,y:430,w:210,h:20,color:"wood",loose:false,hp:2},
-{x:875,y:365,w:22,h:65,color:"wood",loose:false,hp:1},{x:1012,y:365,w:22,h:65,color:"wood",loose:false,hp:1},
-{x:864,y:343,w:180,h:20,color:"wood",loose:false,hp:2},
-{x:925,y:283,w:22,h:60,color:"wood",loose:false,hp:1},{x:965,y:283,w:22,h:60,color:"wood",loose:false,hp:1},
-{x:917,y:261,w:78,h:20,color:"stone",loose:false,hp:3}
+{x:830,y:550,w:250,h:24,color:"wood",loose:false,hp:2},
+{x:850,y:486,w:22,h:64,color:"wood",loose:false,hp:1},{x:1038,y:486,w:22,h:64,color:"wood",loose:false,hp:1},
+{x:850,y:464,w:210,h:20,color:"wood",loose:false,hp:2},
+{x:875,y:399,w:22,h:65,color:"wood",loose:false,hp:1},{x:1012,y:399,w:22,h:65,color:"wood",loose:false,hp:1},
+{x:864,y:377,w:180,h:20,color:"wood",loose:false,hp:2},
+{x:925,y:317,w:22,h:60,color:"wood",loose:false,hp:1},{x:965,y:317,w:22,h:60,color:"wood",loose:false,hp:1},
+{x:917,y:295,w:78,h:20,color:"stone",loose:false,hp:3}
 ];
+blocks.forEach(b=>{b.vx=0;b.vy=0;b.angle=0;b.av=0;b.touchingBird=false});
 pigs=[
-{x:945,y:491,r:21,vx:0,vy:0,loose:false,alive:true},
-{x:946,y:407,r:18,vx:0,vy:0,loose:false,alive:true},
-{x:955,y:324,r:17,vx:0,vy:0,loose:false,alive:true}
+{x:945,y:525,r:21,vx:0,vy:0,loose:false,alive:true},
+{x:946,y:441,r:18,vx:0,vy:0,loose:false,alive:true},
+{x:955,y:358,r:17,vx:0,vy:0,loose:false,alive:true}
 ];
 updateHud();draw()}
 function updateHud(){scoreEl.textContent=score;birdsEl.textContent=ammo;pigsEl.textContent=pigs.filter(p=>p.alive).length}
@@ -73,14 +74,15 @@ function draw(){background();sling(true);blocks.forEach(drawBlock);pigs.forEach(
 if(ended){ctx.fillStyle="#102331b8";ctx.fillRect(0,0,W,H);ctx.fillStyle="#fff";ctx.textAlign="center";ctx.font="900 54px system-ui";ctx.fillText(pigs.some(p=>p.alive)?"ЕЩЁ ОДНА ПОПЫТКА":"ПОБЕДА!",W/2,H/2);ctx.font="600 20px system-ui";ctx.fillText(pigs.some(p=>p.alive)?"Нажми «Заново», чтобы попробовать снова":"Свиньи разбежались · Отличный выстрел!",W/2,H/2+42)}}
 function loadBird(){if(ammo<=0){ended=true;return}bird={x:anchor.x,y:anchor.y,vx:0,vy:0,r:24,active:true,launched:false};flying=false}
 function rectHitCircle(b,x,y,r){let qx=Math.max(b.x,Math.min(x,b.x+b.w)),qy=Math.max(b.y,Math.min(y,b.y+b.h)),dx=x-qx,dy=y-qy;return dx*dx+dy*dy<r*r}
-function update(){if(flying&&bird.active){bird.vy+=gravity;bird.x+=bird.vx;bird.y+=bird.vy;bird.vx*=.998;
+function releaseUnsupported(){const stable=new Set(),solid=blocks.filter(b=>!b.dead&&!b.loose);for(const b of solid)if(b.y+b.h>=ground-2)stable.add(b);let changed=true;while(changed){changed=false;for(const b of solid){if(stable.has(b))continue;for(const support of stable){let gap=support.y-(b.y+b.h),overlap=Math.min(b.x+b.w,support.x+support.w)-Math.max(b.x,support.x),need=Math.min(8,Math.min(b.w,support.w)*.28);if(gap>=-3&&gap<=5&&overlap>=need){stable.add(b);changed=true;break}}}}for(const b of solid)if(!stable.has(b)){b.loose=true;b.vy=Math.max(0,b.vy||0);b.av+=(Math.random()-.5)*.01}for(const p of pigs){if(!p.alive||p.loose)continue;let supported=p.y+p.r>=ground-2;for(const b of stable){let overlap=Math.min(p.x+p.r,b.x+b.w)-Math.max(p.x-p.r,b.x);if(overlap>p.r*.45&&Math.abs(p.y+p.r-b.y)<=7){supported=true;break}}if(!supported){p.loose=true;p.vy=Math.max(0,p.vy||0)}}}
+function collideBlocks(){for(let pass=0;pass<3;pass++)for(let i=0;i<blocks.length;i++){let a=blocks[i];if(a.dead)continue;for(let j=i+1;j<blocks.length;j++){let b=blocks[j];if(b.dead||(!a.loose&&!b.loose))continue;let ox=Math.min(a.x+a.w,b.x+b.w)-Math.max(a.x,b.x),oy=Math.min(a.y+a.h,b.y+b.h)-Math.max(a.y,b.y);if(ox<=0||oy<=0)continue;let aMoves=a.loose,bMoves=b.loose,left=a.x+a.w/2<b.x+b.w/2,top=a.y+a.h/2<b.y+b.h/2;if(ox<oy){if(aMoves&&bMoves){a.x+=left?-ox/2:ox/2;b.x+=left?ox/2:-ox/2;let rel=a.vx-b.vx;a.vx-=rel*.28;b.vx+=rel*.28;a.av+=(left?-1:1)*.003;b.av+=(left?1:-1)*.003}else if(aMoves){a.x+=left?-ox:ox;a.vx*=-.18}else{b.x+=left?ox:-ox;b.vx*=-.18}}else if(aMoves&&bMoves){if(top){a.y-=oy;let impact=Math.max(0,a.vy-b.vy);a.vy=b.vy-impact*.12;b.vy+=impact*.14}else{b.y-=oy;let impact=Math.max(0,b.vy-a.vy);b.vy=a.vy-impact*.12;a.vy+=impact*.14}a.vx+=b.vx*.035;b.vx+=a.vx*.035}else if(aMoves){if(top){a.y-=oy;let impact=Math.max(0,a.vy-b.vy);a.vy=impact>1?b.vy-impact*.12:b.vy;a.vx*=.82;a.av*=.72;if(Math.abs(a.vy)<.65&&Math.abs(a.vx)<.75&&Math.abs(a.av)<.02)a.loose=false}else{a.y+=oy;a.vy=Math.max(a.vy,b.vy)}}else{if(!top){b.y-=oy;let impact=Math.max(0,b.vy-a.vy);b.vy=impact>1?a.vy-impact*.12:a.vy;b.vx*=.82;b.av*=.72;if(Math.abs(b.vy)<.65&&Math.abs(b.vx)<.75&&Math.abs(b.av)<.02)b.loose=false}else{b.y+=oy;b.vy=Math.max(b.vy,a.vy)}}}}}function update(){if(flying&&bird.active){bird.vy+=gravity;bird.x+=bird.vx;bird.y+=bird.vy;bird.vx*=.998;
 if(bird.y+bird.r>ground){bird.y=ground-bird.r;bird.vy*=-.28;bird.vx*=.78;if(Math.abs(bird.vy)<1.3)bird.vy=0}
 if(bird.x>W+70||bird.y>H+80)bird.active=false;
-for(const b of blocks){if(b.dead||!rectHitCircle(b,bird.x,bird.y,bird.r))continue;let speed=Math.hypot(bird.vx,bird.vy);if(speed>2){b.hp-=Math.max(1,speed/12);b.loose=true;b.vx+=(bird.vx*.22);b.vy+=(bird.vy*.16);b.av+=(bird.vx*.0009);bird.vx*=.57;bird.vy*=.64;if(b.hp<=0){b.dead=true;score+=100;updateHud()}}}
+for(const b of blocks){if(b.dead)continue;if(!rectHitCircle(b,bird.x,bird.y,bird.r)){b.touchingBird=false;continue}let speed=Math.hypot(bird.vx,bird.vy);if(speed>2&&!b.touchingBird){b.touchingBird=true;b.hp-=Math.max(.2,speed/12);if(speed>8||b.hp<=0){b.loose=true;b.vx+=bird.vx*.12;b.vy+=bird.vy*.08;b.av+=(bird.y-(b.y+b.h/2))*.0003}if(b.hp<=0){b.dead=true;score+=100;updateHud()}releaseUnsupported();bird.vx*=.57;bird.vy*=.64}}
 for(const p of pigs){if(!p.alive)continue;let dx=bird.x-p.x,dy=bird.y-p.y,d=Math.hypot(dx,dy);if(d<bird.r+p.r){let speed=Math.hypot(bird.vx,bird.vy);if(speed>5){p.alive=false;score+=500;updateHud()}else{p.loose=true;p.vx=bird.vx*.55;p.vy=bird.vy*.5}bird.vx*=.68;bird.vy*=.68}}
 if(!bird.active||Math.hypot(bird.vx,bird.vy)<1.1&&bird.y+bird.r>=ground-1){bird.active=false;flying=false;shotWait=35}}
-for(const b of blocks){if(b.dead||!b.loose)continue;b.vy+=gravity*.75;b.x+=b.vx;b.y+=b.vy;b.angle+=b.av;b.vx*=.994;b.av*=.985;if(b.y+b.h>ground){b.y=ground-b.h;b.vy*=-.19;b.vx*=.76;b.av*=.75;if(Math.abs(b.vy)<.7)b.vy=0}}
-for(const p of pigs){if(!p.alive||!p.loose)continue;p.vy+=gravity;p.x+=p.vx;p.y+=p.vy;p.vx*=.99;if(p.y+p.r>ground){p.y=ground-p.r;p.vy*=-.18;p.vx*=.72;if(Math.abs(p.vy)<.7)p.vy=0}for(const b of blocks){if(!b.dead&&rectHitCircle(b,p.x,p.y,p.r)&&Math.hypot(b.vx,b.vy)>4){p.alive=false;score+=500;updateHud();break}}}
+for(const b of blocks){if(b.dead||!b.loose)continue;b.vy+=gravity*.75;b.x+=b.vx;b.y+=b.vy;b.angle+=b.av;b.vx*=.994;b.av*=.985;if(b.y+b.h>ground){b.y=ground-b.h;b.vy*=-.19;b.vx*=.76;b.av*=.75;if(Math.abs(b.vy)<.7)b.vy=0;if(Math.abs(b.vy)<.6&&Math.abs(b.vx)<.65&&Math.abs(b.av)<.02)b.loose=false}}collideBlocks();releaseUnsupported();
+for(const p of pigs){if(!p.alive||!p.loose)continue;p.vy+=gravity;p.x+=p.vx;p.y+=p.vy;p.vx*=.99;if(p.y+p.r>ground){let impact=Math.abs(p.vy);p.y=ground-p.r;p.vy*=-.18;p.vx*=.72;if(impact>9){p.alive=false;score+=500;updateHud()}if(Math.abs(p.vy)<.7)p.vy=0;if(Math.abs(p.vy)<.6&&Math.abs(p.vx)<.6)p.loose=false}for(const b of blocks){if(!b.dead&&rectHitCircle(b,p.x,p.y,p.r)&&Math.hypot(b.vx,b.vy)>4){p.alive=false;score+=500;updateHud();break}}}
 if(shotWait>0&&!--shotWait){if(pigs.every(p=>!p.alive)){ended=true;updateHud()}else loadBird()}
 if(ammo===0&&!flying&&!bird.active){ended=true}draw()}
 function point(e){let r=canvas.getBoundingClientRect();return{x:(e.clientX-r.left)*W/r.width,y:(e.clientY-r.top)*H/r.height}}
