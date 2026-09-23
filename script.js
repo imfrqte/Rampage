@@ -1,79 +1,72 @@
 ```javascript
-// ==============================
-// MOBILE MENU
-// ==============================
+const header = document.getElementById("header");
+const menuButton = document.getElementById("menuButton");
+const navLinks = document.getElementById("navLinks");
+const cursorGlow = document.getElementById("cursorGlow");
 
-const menuBtn = document.getElementById("menuBtn");
-const navLinks = document.querySelector(".nav-links");
 
-menuBtn.addEventListener("click", () => {
-    navLinks.classList.toggle("active");
+// HEADER ON SCROLL
+
+window.addEventListener("scroll", () => {
+    if (window.scrollY > 50) {
+        header.classList.add("scrolled");
+    } else {
+        header.classList.remove("scrolled");
+    }
 });
 
 
-// ==============================
-// CLOSE MENU AFTER CLICK
-// ==============================
+// MOBILE MENU
+
+menuButton.addEventListener("click", () => {
+    navLinks.classList.toggle("mobile-open");
+});
 
 document.querySelectorAll(".nav-links a").forEach(link => {
-
     link.addEventListener("click", () => {
-        navLinks.classList.remove("active");
+        navLinks.classList.remove("mobile-open");
     });
-
 });
 
 
-// ==============================
-// SCROLL REVEAL
-// ==============================
+// REVEAL ANIMATION
 
 const revealElements = document.querySelectorAll(".reveal");
 
-const observer = new IntersectionObserver(
-    entries => {
-
+const revealObserver = new IntersectionObserver(
+    (entries) => {
         entries.forEach(entry => {
-
             if (entry.isIntersecting) {
-
                 entry.target.classList.add("visible");
-
-                observer.unobserve(entry.target);
-
+                revealObserver.unobserve(entry.target);
             }
-
         });
-
     },
     {
-        threshold: 0.15
+        threshold: 0.12
     }
 );
 
 revealElements.forEach(element => {
-    observer.observe(element);
+    revealObserver.observe(element);
 });
 
 
-// ==============================
 // COUNTERS
-// ==============================
 
 const counters = document.querySelectorAll("[data-count]");
 
 const counterObserver = new IntersectionObserver(
-    entries => {
+    (entries) => {
 
         entries.forEach(entry => {
 
             if (!entry.isIntersecting) return;
 
-            const element = entry.target;
-            const target = Number(element.dataset.count);
+            const counter = entry.target;
+            const target = Number(counter.dataset.count);
 
             let current = 0;
-
             const duration = 1200;
             const start = performance.now();
 
@@ -84,22 +77,23 @@ const counterObserver = new IntersectionObserver(
                     1
                 );
 
-                current = Math.floor(
-                    progress * target
-                );
+                const eased =
+                    1 - Math.pow(1 - progress, 3);
 
-                element.textContent = current;
+                current = Math.floor(target * eased);
+
+                counter.textContent = current;
 
                 if (progress < 1) {
                     requestAnimationFrame(update);
+                } else {
+                    counter.textContent = target;
                 }
-
             }
 
             requestAnimationFrame(update);
 
-            counterObserver.unobserve(element);
-
+            counterObserver.unobserve(counter);
         });
 
     },
@@ -113,39 +107,61 @@ counters.forEach(counter => {
 });
 
 
-// ==============================
 // CURSOR GLOW
-// ==============================
 
-const glow = document.querySelector(".cursor-glow");
+document.addEventListener("mousemove", (event) => {
 
-document.addEventListener("mousemove", event => {
+    if (!cursorGlow) return;
 
-    glow.style.left = `${event.clientX}px`;
-    glow.style.top = `${event.clientY}px`;
+    cursorGlow.style.left = `${event.clientX}px`;
+    cursorGlow.style.top = `${event.clientY}px`;
 
 });
 
 
-// ==============================
-// HEADER BACKGROUND
-// ==============================
+// BUTTON RIPPLE
 
-const header = document.querySelector(".header");
+document.querySelectorAll(".button").forEach(button => {
+
+    button.addEventListener("mouseenter", () => {
+        button.style.transform = "translateY(-3px)";
+    });
+
+    button.addEventListener("mouseleave", () => {
+        button.style.transform = "";
+    });
+
+});
+
+
+// ACTIVE NAV LINK
+
+const sections = document.querySelectorAll("section[id]");
+const links = document.querySelectorAll(".nav-links a");
 
 window.addEventListener("scroll", () => {
 
-    if (window.scrollY > 50) {
+    let current = "";
 
-        header.style.background =
-            "rgba(8,8,8,.92)";
+    sections.forEach(section => {
 
-    } else {
+        const sectionTop = section.offsetTop - 150;
 
-        header.style.background =
-            "rgba(8,8,8,.65)";
+        if (window.scrollY >= sectionTop) {
+            current = section.getAttribute("id");
+        }
 
-    }
+    });
+
+    links.forEach(link => {
+
+        link.style.color = "";
+
+        if (link.getAttribute("href") === `#${current}`) {
+            link.style.color = "#ff3b30";
+        }
+
+    });
 
 });
 ```
